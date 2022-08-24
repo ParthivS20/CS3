@@ -82,6 +82,14 @@ class Life extends JFrame implements ActionListener, ItemListener {
 
 		// build the model
 		model = new LifeModel(view, file);
+        this.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        this.setSize(640, 580);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -140,6 +148,10 @@ class Life extends JFrame implements ActionListener, ItemListener {
 		}
 	}
 
+	public void start() {
+        this.setVisible(true);
+    }
+
 	private String[] getOptions() {
 		ArrayList<String> options = new ArrayList<>();
 		options.add("random");
@@ -156,15 +168,6 @@ class Life extends JFrame implements ActionListener, ItemListener {
 
 	public static void main(String[] args) throws IOException {
 		Life conway = new Life();
-		
-		conway.addWindowListener(new WindowAdapter()
-		{
-			public void windowClosing(WindowEvent e)
-			{
-				System.exit(0);
-			}
-		});
-		conway.setSize(640, 640);
-		conway.setVisible(true);
+		conway.start();
 	}
 }
