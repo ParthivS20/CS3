@@ -18,40 +18,40 @@ public class LifeModel implements ActionListener {
 	private static int SIZE = Life.SIZE;
 	private LifeCell[][] grid;
 	
-	LifeView myView;
-	Timer timer;
+	private LifeView myView;
+	private Timer timer;
 
 	/** Construct a new model using a particular file */
-	public LifeModel(LifeView view, String fileName) throws IOException {
+	LifeModel(LifeView view, String fileName) throws IOException {
 		grid = setGrid(fileName);
 		myView = view;
 		myView.updateView(grid);
 	}
 
 	/** pause the simulation (the pause button in the GUI */
-	public void pause() {
+	void pause() {
 		if(!Life.paused && !Life.stopped) timer.stop();
 	}
 	
 	/** resume the simulation (the pause button in the GUI */
-	public void resume() {
+	void resume() {
 		timer.restart();
 	}
 	
 	/** run the simulation (the pause button in the GUI */
-	public void run() {
+	void run() {
 		timer = new Timer(50, this);
 		timer.setCoalesce(true);
 		timer.start();
 	}
 
-	public void reset(String fileName) throws FileNotFoundException {
+	void reset(String fileName) throws FileNotFoundException {
 		pause();
 		grid = setGrid(fileName);
 		myView.updateView(grid);
 	}
 
-	public void colorUpdate() {
+	void colorUpdate() {
 		myView.updateView(grid);
 	}
 
@@ -120,4 +120,3 @@ public class LifeModel implements ActionListener {
 		return g;
 	}
 }
-
