@@ -6,7 +6,7 @@ import javax.swing.*;
 /** The view (graphical) component */
 public class LifeView extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private static int SIZE = 100;
+	private static int SIZE = Life.SIZE;
 
 	/** store a reference to the current state of the grid */
     private LifeCell[][] grid;
@@ -33,7 +33,8 @@ public class LifeView extends JPanel {
             for (int c = 0; c < SIZE; c++ ) {
                 if (grid[r][c] != null) {
                     if ( grid[r][c].isAliveNow() )
-                        g.setColor( Color.BLUE );
+                        //g.setColor( Color.BLUE );
+                        g.setColor(Life.randomColor ? getColor() : Color.blue);
                     else
                         g.setColor( new Color(235,235,255) );
 
@@ -41,5 +42,14 @@ public class LifeView extends JPanel {
                 }
             }
         }
+    }
+
+    private Color getColor() {
+        return new Color(getColorVal(), getColorVal(), getColorVal());
+    }
+
+    private int getColorVal() {
+        int min = 80;
+        return (int) (Math.random() * (256 - min) + min);
     }
 }

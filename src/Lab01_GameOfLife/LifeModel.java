@@ -3,6 +3,7 @@ package Lab01_GameOfLife;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class LifeModel implements ActionListener {
 	 *  This is the Model component.
 	 */
 
-	private static int SIZE = 100;
+	private static int SIZE = Life.SIZE;
 	private LifeCell[][] grid;
 	
 	LifeView myView;
@@ -22,44 +23,14 @@ public class LifeModel implements ActionListener {
 
 	/** Construct a new model using a particular file */
 	public LifeModel(LifeView view, String fileName) throws IOException {
-		int r, c;
-		grid = new LifeCell[SIZE][SIZE];
-		for ( r = 0; r < SIZE; r++ )
-			for ( c = 0; c < SIZE; c++ )
-				grid[r][c] = new LifeCell();
-
-		//use random population
-		if ( fileName == null ) {
-			for ( r = 0; r < SIZE; r++ ) {
-				for ( c = 0; c < SIZE; c++ ) {
-					if ( Math.random() > 0.85) //15% chance of a cell starting alive
-						grid[r][c].setAliveNow(true);
-				}
-			}
-		}
-		else {
-			Scanner input = new Scanner(new File(fileName));
-			int numInitialCells = input.nextInt();
-			for (int count=0; count<numInitialCells; count++) {
-				r = input.nextInt();
-				c = input.nextInt();
-				grid[r][c].setAliveNow(true);
-			}
-			input.close();
-		}
-
+		grid = setGrid(fileName);
 		myView = view;
 		myView.updateView(grid);
 	}
 
-	/** Constructor a randomized model */
-	public LifeModel(LifeView view) throws IOException {
-		this(view, null);
-	}
-
 	/** pause the simulation (the pause button in the GUI */
 	public void pause() {
-		timer.stop();
+		if(!Life.paused && !Life.stopped) timer.stop();
 	}
 	
 	/** resume the simulation (the pause button in the GUI */
@@ -72,6 +43,16 @@ public class LifeModel implements ActionListener {
 		timer = new Timer(50, this);
 		timer.setCoalesce(true);
 		timer.start();
+	}
+
+	public void reset(String fileName) throws FileNotFoundException {
+		pause();
+		grid = setGrid(fileName);
+		myView.updateView(grid);
+	}
+
+	public void colorUpdate() {
+		myView.updateView(grid);
 	}
 
 	/** called each time timer fires */
@@ -101,12 +82,42 @@ public class LifeModel implements ActionListener {
 
 		for(int r = row - 1; r <= row + 1; r++) {
 			for(int c = col - 1; c <= col + 1; c++) {
-				if(r < 0 || r >= SIZE || c < 0 || c >= SIZE || r == row && c == col || !grid[r][c].isAliveNow()) continue;
+				if(r < 0 || r >= SIZE || c < 0 || c >= SIZE || !grid[r][c].isAliveNow() || r == row && c == col) continue;
 				n++;
 			}
 		}
 
 		return n;
+	}
+
+	private LifeCell[][] setGrid(String fileName) throws FileNotFoundException {
+		int r, c;
+		LifeCell[][] g = new LifeCell[SIZE][SIZE];
+		for ( r = 0; r < SIZE; r++ )
+			for ( c = 0; c < SIZE; c++ )
+				g[r][c] = new LifeCell();
+
+		//use random population
+		if ( fileName == null || fileName.equals("random")) {
+			for ( r = 0; r < SIZE; r++ ) {
+				for ( c = 0; c < SIZE; c++ ) {
+					if (Math.random() > 0.85) //15% chance of a cell starting alive
+						g[r][c].setAliveNow(true);
+				}
+			}
+		}
+		else {
+			Scanner input = new Scanner(new File("src/Lab01_GameOfLife/" + fileName));
+			int numInitialCells = input.nextInt();
+			for (int count=0; count<numInitialCells; count++) {
+				r = input.nextInt();
+				c = input.nextInt();
+				g[r][c].setAliveNow(true);
+			}
+			input.close();
+		}
+
+		return g;
 	}
 }
 
