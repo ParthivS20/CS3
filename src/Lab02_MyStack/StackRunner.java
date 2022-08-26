@@ -24,5 +24,7 @@ public class StackRunner {
 		m.pop(); m.pop(); m.pop();
 		
 		System.out.println("\n" + m.isEmpty()); //test with non-empty stack
+
+		System.out.println(m.getMin());  //return the minimum value of the stack
 	}
 }
