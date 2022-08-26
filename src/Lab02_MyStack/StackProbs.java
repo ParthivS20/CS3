@@ -1,21 +1,17 @@
 package Lab02_MyStack;
 
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class StackProbs {
+class StackProbs {
     Stack<Integer> doubleUp(Stack<Integer> nums) {
-        Stack<Integer> temp = new Stack<>();
-        while(nums.size() > 0) {
-            Integer x = nums.pop();
-            temp.push(x);
-            temp.push(x);
+        Integer x = nums.pop();
+        if(!nums.isEmpty()) {
+            doubleUp(nums);
         }
-
-        int size = temp.size();
-        for(int i = 0; i < size; i++) {
-            nums.push(temp.pop());
-        }
-
+        nums.push(x);
+        nums.push(x);
         return nums;
     }
 
@@ -60,5 +56,44 @@ public class StackProbs {
         }
 
         return nums;
+    }
+
+    String reverseVowels(String str) {
+        Pattern vowel = Pattern.compile("[aeiou]");
+        Stack<String> vowels = new Stack<>();
+
+        for(int i = 0; i < str.length(); i++) {
+            String x = str.substring(i, i + 1);
+            if(vowel.matcher(x).find()) {
+                vowels.push(x);
+            }
+        }
+
+        for(int i = 0; i < str.length(); i++) {
+            String x = str.substring(i, i + 1);
+            if(vowel.matcher(x).find()) {
+                str = str.substring(0, i) + vowels.pop() + str.substring(i + 1);
+            }
+        }
+
+        return str;
+    }
+
+    boolean bracketBalance(String s) {
+        String openingBrackets = "({[<";
+        String closingBrackets = ")}]>";
+
+        Stack<Character> brackets = new Stack<>();
+        char[] sequence = s.toCharArray();
+        for(char b : sequence) {
+            if(openingBrackets.contains(b + "")) {
+                brackets.push(b);
+            }
+            else if(brackets.isEmpty() || !brackets.pop().equals(openingBrackets.charAt(closingBrackets.indexOf(b)))) {
+                return false;
+            }
+        }
+
+        return brackets.isEmpty();
     }
 }

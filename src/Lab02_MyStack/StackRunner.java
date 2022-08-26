@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class StackRunner {
 	public static void main(String[] args) {
-		/*MyStack m = new MyStack();
+		MyStack m = new MyStack();
 		
 		System.out.println(m.isEmpty() + "\n"); //test with empty stack
 		
@@ -23,25 +23,6 @@ public class StackRunner {
 				
 		m.pop(); m.pop(); m.pop();
 		
-		System.out.println("\n" + m.isEmpty()); //test with non-empty stack*/
-
-		StackProbs test = new StackProbs();
-		Stack<Integer> stack = new Stack<>();
-		stack.push(-22);
-		stack.push(-3);
-		stack.push(-4);
-		stack.push(3);
-		stack.push(5);
-
-		System.out.println(test.shiftByN(makeStack(new int[]{7, 23, -7, 0, 22, -8, 4, 5}), 3));
+		System.out.println("\n" + m.isEmpty()); //test with non-empty stack
 	}
-
-	public static Stack<Integer> makeStack(int[] nums) {
-		Stack<Integer> stack = new Stack<>();
-		for (int num : nums)
-			stack.push(num);
-		return
-				stack;
-	}
-
 }
