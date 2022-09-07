@@ -17,9 +17,7 @@ class MyStack implements StackADT {
 
     @Override
     public void push(Square item) {
-        if(stack.length < size + 1) {
-            doubleCapacity();
-        }
+        if(stack.length < size + 1) doubleCapacity();
         stack[size] = item;
         size++;
     }
@@ -60,9 +58,7 @@ class MyStack implements StackADT {
 
     private void doubleCapacity() {
         Square[] newStack = new Square[stack.length * 2];
-        for(int i = 0; i < stack.length; i++) {
-            newStack[i] = stack[i];
-        }
+        System.arraycopy(stack, 0, newStack, 0, stack.length);
         stack = newStack;
     }
 }

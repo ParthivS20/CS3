@@ -14,12 +14,11 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 
 public class MazeApp extends JFrame implements ActionListener {
-
 	// Initial font size for the display
 	private static int fontSize = 16;
 
 	// Initial interval between animation in milliseconds
-	private static int timerInterval = 500; 
+	private static int timerInterval = 500;
 
 	private static final long serialVersionUID = 6228378229836664288L;
 
@@ -121,7 +120,7 @@ public class MazeApp extends JFrame implements ActionListener {
 				10, //left
 				10, //bottom
 				10) //right
-				);
+		);
 		pane.add(new JScrollPane(mazeDisplay), "Center"); // let's maze be biggest
 		pane.add(new JScrollPane(pathDisplay), "South");
 
@@ -160,7 +159,7 @@ public class MazeApp extends JFrame implements ActionListener {
 
 	/*
 	 * Collection of handlers to deal with GUI events.
-	 * 
+	 *
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
@@ -204,7 +203,7 @@ public class MazeApp extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Allow the user to change the timer interval. 
+	 * Allow the user to change the timer interval.
 	 */
 	private void doTimer() {
 		int newValue = -1;
@@ -221,7 +220,7 @@ public class MazeApp extends JFrame implements ActionListener {
 
 
 	/**
-	 * Allow the user to change the font size. 
+	 * Allow the user to change the font size.
 	 */
 	private void doFontSize() {
 		int newValue = -1;
@@ -321,13 +320,13 @@ public class MazeApp extends JFrame implements ActionListener {
 
 			@Override
 			public boolean accept(File f) {
-				if (f.isDirectory()) 
+				if (f.isDirectory())
 					return true;
-				
-				
+
+
 				if (f.getName().startsWith("maze-"))
 					return true;
-				
+
 				return false;
 			}
 
@@ -389,4 +388,3 @@ public class MazeApp extends JFrame implements ActionListener {
 	}
 
 }
-

@@ -1,48 +1,61 @@
 package Lab03_MazeSolver;
 
 public class Square {
-    public static final int EMPTY = 0;
-    public static final int WALL = 1;
-    public static final int START = 2;
-    public static final int EXIT = 3;
+    //These values are used to denote what type of Square this is in the maze
+    final static int EMPTY = 0; //an empty space
+    final static int WALL  = 1; //a wall
+    final static int START = 2; //the start
+    final static int EXIT  = 3; //the exit
 
-    private int row;
-    private int col;
-    private int type;
-    private char status;
+    //These values indicate the status of a particular Square while the maze is being solved, for the GUI
+    final static char WORKING      = 'o'; //currently on the work list (the stack)
+    final static char EXPLORED     = '.'; //done, already explored
+    final static char ON_EXIT_PATH = 'x'; //on the exit path, used in a later lab
+    final static char UNKNOWN      = '_'; //not known / visited yet (empty cells only)
 
-    public Square(int row, int col, int type) {
+    private int  row, col; //r, c location in the maze
+    private int  type;     //type of this square, e.g. empty, wall, etc.
+    private char status;   //the status of a room being explored, shown by the GUI
+
+    Square(int row, int col, int type) {
         this.row = row;
         this.col = col;
         this.type = type;
-        this.status = '_';
+        this.status = UNKNOWN;
     }
 
-    public int getRow() {
+    int getRow() {
         return row;
     }
 
-    public int getCol() {
+    int getCol() {
         return col;
     }
 
-    public int getType() {
+    int getType() {
         return type;
     }
 
-    public char getStatus() {
+    char getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    void reset() {
+        setStatus(UNKNOWN);
+    }
+
+    void setStatus(char status) {
         this.status = status;
     }
 
-    private String getTypeSymbol() {
-        if(type == EMPTY) return "_";
-        if(type == WALL) return "#";
-        if(type == START) return "S";
-        return "E";
+    private char getTypeSymbol() {
+        switch(type) {
+            default:
+            case EMPTY: return '_';
+            case WALL: return '#';
+            case START: return 'S';
+            case EXIT: return 'E';
+        }
     }
 
     @Override
@@ -53,6 +66,6 @@ public class Square {
 
     @Override
     public String toString() {
-        return type == EMPTY ? String.valueOf(status) : getTypeSymbol();
+        return String.valueOf(type == EMPTY ? status : getTypeSymbol());
     }
 }
