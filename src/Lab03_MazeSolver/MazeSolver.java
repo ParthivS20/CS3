@@ -24,7 +24,7 @@ public abstract class MazeSolver {
     }
 
     void step() {
-
+        if(next().equals(maze.getExit())) setSolved(true);
     }
 
     String getPath() {

@@ -40,6 +40,10 @@ public class Square {
         return status;
     }
 
+    boolean isExplored() {
+        return status == EXPLORED;
+    }
+
     void reset() {
         setStatus(UNKNOWN);
     }
