@@ -23,20 +23,20 @@ public abstract class MazeSolver {
     void step() {
         if(isEmpty()) return;
 
-        Square n = next();
-        if(n.equals(maze.getExit())) {
+        Square s = next();
+        if(s.equals(maze.getExit())) {
             maze.setSolved(true);
             return;
         }
 
-        for(Square s : maze.getNeighbors(n)) {
-            if((s.getType() == Square.EMPTY || s.getType() == Square.EXIT) && s.getStatus() == Square.UNKNOWN) {
-                add(s);
-                s.setStatus(Square.WORKING);
+        for(Square n : maze.getNeighbors(s)) {
+            if((n.getType() == Square.EMPTY || n.getType() == Square.EXIT) && n.getStatus() == Square.UNKNOWN) {
+                add(n);
+                n.setStatus(Square.WORKING);
             }
         }
 
-        n.setStatus(Square.EXPLORED);
+        s.setStatus(Square.EXPLORED);
     }
 
     String getPath() {
