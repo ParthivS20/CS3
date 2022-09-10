@@ -29,7 +29,7 @@ class StackProbs {
             }
         }
 
-        while(pos.size() > 0) {
+        while(!pos.isEmpty()) {
             neg.push(pos.pop());
         }
 

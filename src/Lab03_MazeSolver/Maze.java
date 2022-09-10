@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Maze {
     private Square[][] grid;
-    private Square start;
-    private Square exit;
+    private Square start, exit;
+    private boolean solved;
 
     boolean loadMaze(String fileName) {
         Scanner file;
@@ -28,30 +28,41 @@ public class Maze {
                 if(grid[i][j].getType() == Square.EXIT) exit = grid[i][j];
             }
         }
+
+        file.close();
         return true;
     }
 
     List<Square> getNeighbors(Square s) {
         List<Square> neighbors = new ArrayList<>();
         if(s.getRow() > 0) neighbors.add(grid[s.getRow() - 1][s.getCol()]);                     //north
-        if(s.getRow() < grid[0].length - 1) neighbors.add(grid[s.getRow()][s.getCol() + 1]);    //east
+        if(s.getCol() < grid[0].length - 1) neighbors.add(grid[s.getRow()][s.getCol() + 1]);        //east
         if(s.getRow() < grid.length - 1) neighbors.add(grid[s.getRow() + 1][s.getCol()]);       //south
         if(s.getCol() > 0) neighbors.add(grid[s.getRow()][s.getCol() - 1]);                     //west
         return neighbors;
     }
 
-    public Square getStart() {
+    Square getStart() {
         return start;
     }
 
-    public Square getExit() {
+    Square getExit() {
         return exit;
     }
 
+    boolean isSolved() {
+        return solved;
+    }
+
+    void setSolved(boolean solved) {
+        this.solved = solved;
+    }
+
     void reset() {
-        for(int i = 0; i < grid.length; i++) {
-            for(int j = 0; j < grid[i].length; j++) {
-                grid[i][j].reset();
+        solved = false;
+        for (Square[] squares : grid) {
+            for (Square square : squares) {
+                square.reset();
             }
         }
     }

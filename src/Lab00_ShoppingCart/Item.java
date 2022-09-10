@@ -47,6 +47,6 @@ class Item {
     }
 
     private String priceFormatter(double price) {
-        return String. format("%.2f", Math.round(price * 100) / 100.0);
+        return String.format("%.2f", Math.round(price * 100) / 100.0);
     }
 }

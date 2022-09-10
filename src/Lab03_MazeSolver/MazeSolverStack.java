@@ -24,6 +24,6 @@ public class MazeSolverStack extends MazeSolver {
 
     @Override
     Square next() {
-        return worklist.peek();
+        return worklist.pop();
     }
 }
