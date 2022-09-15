@@ -1,9 +1,8 @@
 package Lab03_MazeSolver;
 
-import java.util.List;
-
 public abstract class MazeSolver {
     private Maze maze;
+    private boolean solved;
 
     MazeSolver(Maze maze) {
         this.maze = maze;
@@ -16,38 +15,23 @@ public abstract class MazeSolver {
     abstract void add(Square s);
     abstract Square next();
 
+    void setSolved(boolean solved) {
+        this.solved = solved;
+    }
+
     boolean isSolved() {
-        return maze.isSolved();
+        return solved;
     }
 
     void step() {
-        if(isEmpty()) return;
-
-        Square s = next();
-        if(s.equals(maze.getExit())) {
-            maze.setSolved(true);
-            return;
-        }
-
-        for(Square n : maze.getNeighbors(s)) {
-            if((n.getType() == Square.EMPTY || n.getType() == Square.EXIT) && n.getStatus() == Square.UNKNOWN) {
-                add(n);
-                n.setStatus(Square.WORKING);
-            }
-        }
-
-        s.setStatus(Square.EXPLORED);
+        if(next().equals(maze.getExit())) setSolved(true);
     }
 
     String getPath() {
-        if (isEmpty()) return "Maze cannot be solved :(";
-        if (isSolved()) return "Maze is solved!";
-        return "Solving...";
+        return "";
     }
 
     void solve() {
-        while(!isSolved()) {
-            step();
-        }
+
     }
 }

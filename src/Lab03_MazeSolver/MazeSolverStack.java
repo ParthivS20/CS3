@@ -1,7 +1,7 @@
 package Lab03_MazeSolver;
 
 public class MazeSolverStack extends MazeSolver {
-    MyStack worklist;
+    private MyStack worklist;
 
     MazeSolverStack(Maze maze) {
         super(maze);
@@ -20,10 +20,11 @@ public class MazeSolverStack extends MazeSolver {
     @Override
     void add(Square s) {
         worklist.push(s);
+        s.setStatus(Square.EXPLORED);
     }
 
     @Override
     Square next() {
-        return worklist.pop();
+        return worklist.peek();
     }
 }
