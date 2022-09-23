@@ -24,7 +24,7 @@ public class WordLadderRunner {
             String start = line[0];
             String end = line[1];
 
-            if(!dictionary.contains(start) || !dictionary.contains(end)) {
+            if(!dictionary.contains(start) || !dictionary.contains(end) || start.length() != end.length()) {
                 System.out.println("No Ladder found between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
                 continue;
             }
@@ -53,27 +53,27 @@ public class WordLadderRunner {
                     while(!topLadder.isEmpty()) {
                         String word = topLadder.pop();
                         String text = word;
+
                         if(topLadder.isEmpty()) {
                             text = color(text, ConsoleColors.GREEN);
                         }
                         else {
-                            int changedIndex = -1;
                             char[] word1 = word.toCharArray();
                             char[] word2 = topLadder.peek().toCharArray();
+
                             for(int i = 0; i < word1.length; i++) {
                                 if(word1[i] != word2[i]) {
-                                    changedIndex = i;
+                                    if(ladder.isBlank()) {
+                                        text = color(text.substring(0, i), ConsoleColors.CYAN) + color(word1[i] + "",  ConsoleColors.CYAN_BOLD_BRIGHT) + color(text.substring(i + 1), ConsoleColors.CYAN);
+                                    }
+                                    else {
+                                        text = text.substring(0, i) + color(word1[i] + "",  ConsoleColors.RED_BOLD) + text.substring(i + 1);
+                                    }
                                     break;
                                 }
                             }
-
-                            if(ladder.isBlank()) {
-                                text = color(text.substring(0, changedIndex), ConsoleColors.CYAN) + color(word1[changedIndex] + "",  ConsoleColors.CYAN_BOLD_BRIGHT) + color(text.substring(changedIndex + 1), ConsoleColors.CYAN);
-                            }
-                            else {
-                                text = text.substring(0, changedIndex) + color(word1[changedIndex] + "",  ConsoleColors.RED_BOLD) + text.substring(changedIndex + 1);
-                            }
                         }
+
                         ladder = text + ", " + ladder;
                     }
 
