@@ -5,8 +5,8 @@ import java.util.*;
 
 public class WordLadderRunner {
     public static void main(String[] args) throws Exception {
-        HashSet<String> dictionary = new HashSet<>();
-        HashSet<String> removedWords = new HashSet<>();
+        Set<String> dictionary = new HashSet<>();
+        Set<String> removedWords = new HashSet<>();
 
         Scanner dictFile =  new Scanner(new File("src/Lab06_WordLadder/dictionary.txt"));
         Scanner inputFile = new Scanner(new File("src/Lab06_WordLadder/input.txt"));
@@ -44,19 +44,23 @@ public class WordLadderRunner {
 
                 if(topWord.equals(end)) {
                     String ladder = "";
-                    while(!topLadder.isEmpty()) ladder += topLadder.pop() + ", ";
+                    while(!topLadder.isEmpty()) {
+                        ladder = topLadder.pop() + ", " + ladder;
+                    }
 
                     System.out.println("Ladder Found! >>> [" + ladder.substring(0, ladder.length() - 2) + "]");
                     ladderFound = true;
-
                     break;
-                } else {
+                }
+                else {
                     char[] word = topWord.toCharArray();
-                    for(int i = 0; i < word.length; i++)
-                        for(char j = 'a'; j < 'z'; j++) {
+                    for(int i = 0; i < word.length; i++) {
+                        char originalLetter = word[i];
+                        for (char j = 'a'; j <= 'z'; j++) {
                             word[i] = j;
-                            String newWord = String.valueOf(word);
-                            if(dictionary.contains(newWord)) {
+                            String newWord = new String(word);
+
+                            if (dictionary.contains(newWord)) {
                                 dictionary.remove(newWord);
                                 removedWords.add(newWord);
 
@@ -66,6 +70,8 @@ public class WordLadderRunner {
                                 queue.offer(newLadder);
                             }
                         }
+                        word[i] = originalLetter;
+                    }
                 }
             }
 
