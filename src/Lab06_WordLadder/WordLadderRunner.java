@@ -13,8 +13,7 @@ public class WordLadderRunner {
 
         while(dictFile.hasNext()) dictionary.add(dictFile.nextLine().toLowerCase());
 
-        int z = 0;
-        while(z < 1) {
+        while(inputFile.hasNext()) {
             String[] line = inputFile.nextLine().split(" ");
             String start = line[0];
             String end = line[1];
@@ -52,22 +51,21 @@ public class WordLadderRunner {
 
                     break;
                 } else {
-                    for(int i = 0; i < topWord.length(); i++) {
-                        char[] word = topWord.toCharArray();
-                        for(char j = 'a'; j <= 'z'; j++) {
+                    char[] word = topWord.toCharArray();
+                    for(int i = 0; i < word.length; i++)
+                        for(char j = 'a'; j < 'z'; j++) {
                             word[i] = j;
                             String newWord = String.valueOf(word);
-
                             if(dictionary.contains(newWord)) {
                                 dictionary.remove(newWord);
                                 removedWords.add(newWord);
 
-                                queue.offer(topLadder);
-                                topLadder.push(newWord);
-                                System.out.println(topLadder);
+                                Stack<String> newLadder = new Stack<>();
+                                newLadder.addAll(topLadder);
+                                newLadder.push(newWord);
+                                queue.offer(newLadder);
                             }
                         }
-                    }
                 }
             }
 
@@ -77,7 +75,6 @@ public class WordLadderRunner {
 
             dictionary.addAll(removedWords);
             removedWords.clear();
-            z++;
         }
     }
 }
