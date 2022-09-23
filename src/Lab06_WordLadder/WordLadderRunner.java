@@ -5,6 +5,8 @@ import java.util.*;
 
 public class WordLadderRunner {
     public static void main(String[] args) throws Exception {
+        long startTime = System.nanoTime();
+
         Set<String> dictionary = new HashSet<>();
         Set<String> removedWords = new HashSet<>();
 
@@ -59,7 +61,6 @@ public class WordLadderRunner {
                         for (char j = 'a'; j <= 'z'; j++) {
                             word[i] = j;
                             String newWord = new String(word);
-
                             if (dictionary.contains(newWord)) {
                                 dictionary.remove(newWord);
                                 removedWords.add(newWord);
@@ -82,5 +83,7 @@ public class WordLadderRunner {
             dictionary.addAll(removedWords);
             removedWords.clear();
         }
+
+        System.out.println("Program Runtime: " + (System.nanoTime() - startTime) / 1000000 + "ms");
     }
 }
