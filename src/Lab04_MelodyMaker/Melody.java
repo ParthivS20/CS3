@@ -24,7 +24,7 @@ public class Melody {
             if(x.isRepeat()) {
                 inRepeated = !inRepeated;
                 if(!inRepeated) {
-                    duration +=  x.getDuration() + repeatedDuration;
+                    duration += x.getDuration() + repeatedDuration;
                     repeatedDuration = 0;
                 }
             }
