@@ -25,12 +25,12 @@ public class WordLadderRunner {
             String end = line[1];
 
             if(!dictionary.contains(start) || !dictionary.contains(end) || start.length() != end.length()) {
-                System.out.println("No Ladder found between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
+                System.out.println("No ladder between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
                 continue;
             }
 
             if(start.equals(end)) {
-                System.out.println("Ladder Found! >>> [" + color(start, ConsoleColors.GREEN) + "]");
+                System.out.println("Found a ladder! >>> [" + color(start, ConsoleColors.GREEN) + "]");
                 continue;
             }
 
@@ -77,7 +77,7 @@ public class WordLadderRunner {
                         ladder = text + ", " + ladder;
                     }
 
-                    System.out.println("Ladder Found! >>> [" + ladder.substring(0, ladder.length() - 2) + "]");
+                    System.out.println("Found a ladder! >>> [" + ladder.substring(0, ladder.length() - 2) + "]");
                     ladderFound = true;
                     break;
                 }
@@ -104,7 +104,7 @@ public class WordLadderRunner {
             }
 
             if(!ladderFound) {
-                System.out.println("No Ladder found between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
+                System.out.println("No ladder between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
             }
 
             dictionary.addAll(removedWords);
