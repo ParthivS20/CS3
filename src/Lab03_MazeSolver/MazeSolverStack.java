@@ -1,30 +1,29 @@
 package Lab03_MazeSolver;
 
 public class MazeSolverStack extends MazeSolver {
-    private MyStack worklist;
+    MyStack worklist;
 
-    MazeSolverStack(Maze maze) {
+    public MazeSolverStack(Maze maze) {
         super(maze);
     }
 
     @Override
-    void makeEmpty() {
+    public void makeEmpty() {
         worklist = new MyStack();
     }
 
     @Override
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return worklist.isEmpty();
     }
 
     @Override
-    void add(Square s) {
+    public void add(Square s) {
         worklist.push(s);
-        s.setStatus(Square.EXPLORED);
     }
 
     @Override
-    Square next() {
-        return worklist.peek();
+    public Square next() {
+        return worklist.pop();
     }
 }

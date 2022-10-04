@@ -1,37 +1,54 @@
 package Lab03_MazeSolver;
 
 public abstract class MazeSolver {
-    private Maze maze;
-    private boolean solved;
+    private final Maze maze;
 
-    MazeSolver(Maze maze) {
+    public MazeSolver(Maze maze) {
         this.maze = maze;
         makeEmpty();
         add(maze.getStart());
     }
 
-    abstract void makeEmpty();
-    abstract boolean isEmpty();
-    abstract void add(Square s);
-    abstract Square next();
+    public abstract void makeEmpty();
 
-    void setSolved(boolean solved) {
-        this.solved = solved;
+    public abstract boolean isEmpty();
+
+    public abstract void add(Square s);
+
+    public abstract Square next();
+
+    public boolean isSolved() {
+        return maze.isSolved();
     }
 
-    boolean isSolved() {
-        return solved;
+    public void step() {
+        if(isEmpty()) return;
+
+        Square n = next();
+        if(n.equals(maze.getExit())) {
+            maze.setSolved(true);
+            return;
+        }
+
+        for(Square s : maze.getNeighbors(n)) {
+            if((s.getType() == Square.EMPTY || s.getType() == Square.EXIT) && s.getStatus() == Square.UNKNOWN) {
+                add(s);
+                s.setStatus(Square.WORKING);
+            }
+        }
+
+        n.setStatus(Square.EXPLORED);
     }
 
-    void step() {
-        if(next().equals(maze.getExit())) setSolved(true);
-    }
-
-    String getPath() {
-        return "";
+    public String getPath() {
+        if (isEmpty()) return "Maze cannot be solved :(";
+        if (isSolved()) return "Maze is solved!";
+        return "Solving...";
     }
 
     void solve() {
-
+        while(!isSolved()) {
+            step();
+        }
     }
 }

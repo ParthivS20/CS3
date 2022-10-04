@@ -1,4 +1,4 @@
-package Lab03_MazeSolver;
+package Lab08_LinkedListQueue;
 
 /**
  * The CSCI 151 Amazing Maze Solver GUI application.
@@ -9,18 +9,42 @@ package Lab03_MazeSolver;
  *
  */
 
-import java.awt.*;
-import java.awt.event.*;
+import Lab03_MazeSolver.Maze;
+import Lab03_MazeSolver.MazeSolver;
+import Lab03_MazeSolver.MazeSolverStack;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
 
-public class MazeApp extends JFrame implements ActionListener {
+/*
+ * View and controller component
+ */
+public class MazeAppV2 extends JFrame implements ActionListener
+{
 	// Initial font size for the display
 	private static int fontSize = 16;
 
 	// Initial interval between animation in milliseconds
-	private static int timerInterval = 500;
+	private static int timerInterval = 500; 
 
 	private static final long serialVersionUID = 6228378229836664288L;
 
@@ -46,7 +70,7 @@ public class MazeApp extends JFrame implements ActionListener {
 	/**
 	 * Constructor -- does most of the work setting up the GUI.
 	 */
-	public MazeApp() {
+	public MazeAppV2() {
 		// Set up the frame
 		super("Amazing Maze Solver");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,16 +102,16 @@ public class MazeApp extends JFrame implements ActionListener {
 		controls.add(fontPanel);
 
 		// Create the buttons
-		loadButton = new JButton("load");
+		loadButton  = new JButton("load");
 		resetButton = new JButton("reset");
-		quitButton = new JButton("quit");
-		solverType = new JButton("stack");
+		quitButton  = new JButton("quit");
+		solverType  = new JButton("stack");
 		solveButton = new JButton("start");
-		stepButton = new JButton("step");
+		stepButton  = new JButton("step");
 
 		// places to put all the top menu items
-		JPanel buttons1 = new JPanel(new GridLayout(1, 3));  // top row of buttons
-		JPanel buttons2 = new JPanel(new GridLayout(1, 3));  // bottom row of buttons
+		JPanel buttons1  = new JPanel(new GridLayout(1, 3));  // top row of buttons
+		JPanel buttons2  = new JPanel(new GridLayout(1, 3));  // bottom row of buttons
 		JPanel buttonBar = new JPanel(new GridLayout(2, 2)); // combined layout of buttons
 		// and text
 
@@ -122,7 +146,7 @@ public class MazeApp extends JFrame implements ActionListener {
 				10, //left
 				10, //bottom
 				10) //right
-		);
+				);
 		pane.add(new JScrollPane(mazeDisplay), "Center"); // let's maze be biggest
 		pane.add(new JScrollPane(pathDisplay), "South");
 
@@ -161,51 +185,51 @@ public class MazeApp extends JFrame implements ActionListener {
 
 	/*
 	 * Collection of handlers to deal with GUI events.
-	 *
+	 * 
 	 * (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ( (e.getSource() == loadButton) || (e.getSource() == filename) ){
+		if ( (e.getSource() == loadButton) || (e.getSource() == filename) )
 			loadFile();
-		}
+
 		if (e.getSource() == solveButton) {
 			if (mazeLoaded) {
-				//makeNewSolver(); //not sure why this was here? was restarting instead of resuming
+				//makeNewSolver();
 				solveButton();
 			}
 		}
-		if (e.getSource() == resetButton) {
+		
+		if (e.getSource() == resetButton) 
 			reset();
-		}
+
 		if (e.getSource() == solverType) {
 			toggleSolverType();
 			makeNewSolver();
 		}
-		if (e.getSource() == quitButton) {
+		
+		if (e.getSource() == quitButton) 
 			doQuit();
-		}
-		if (e.getSource() == timerField) {
+
+		if (e.getSource() == timerField)
 			doTimer();
-		}
-		if (e.getSource() == fontField) {
+		
+		if (e.getSource() == fontField) 
 			doFontSize();
-		}
-		if (e.getSource() == stepButton) {
+		
+		if (e.getSource() == stepButton) 
 			if (mazeLoaded)
 				doStep();
-		}
-		if (e.getSource() == timer) {
-			// animate a step
-			if (mazeLoaded) {
+		
+		if (e.getSource() == timer)
+			if (mazeLoaded) //animate a step
 				doStep();
-			}
-		}
+			
 	}
 
 	/**
-	 * Allow the user to change the timer interval.
+	 * Allow the user to change the timer interval. 
 	 */
 	private void doTimer() {
 		int newValue = -1;
@@ -222,7 +246,7 @@ public class MazeApp extends JFrame implements ActionListener {
 
 
 	/**
-	 * Allow the user to change the font size.
+	 * Allow the user to change the font size. 
 	 */
 	private void doFontSize() {
 		int newValue = -1;
@@ -263,6 +287,7 @@ public class MazeApp extends JFrame implements ActionListener {
 	private void doStep() {
 		if (mazeLoaded && !solver.isSolved()) {
 			solver.step();
+			//solver.solve();
 			if (solver.isSolved()) { //WASN'T DISPLAYING LAST GETPATH() CALL, FIX
 				solveButton();
 				timer.stop();
@@ -276,7 +301,13 @@ public class MazeApp extends JFrame implements ActionListener {
 	 * Handles the user clicking on the solver type button.
 	 */
 	private void toggleSolverType() {
-		//nothing to see here
+		String oldType = solverType.getText();
+		if (oldType.equalsIgnoreCase("queue")) {
+			solverType.setText("stack");
+		} else if (oldType.equalsIgnoreCase("stack")) {
+			solverType.setText("queue");
+		} else
+			throw new UnsupportedOperationException("Don't know how to change from a: " + oldType);
 		reset();
 	}
 
@@ -284,7 +315,13 @@ public class MazeApp extends JFrame implements ActionListener {
 	 * Builds a new MazeSolver of the type displayed on the button.
 	 */
 	private void makeNewSolver() {
-		solver = new MazeSolverStack(this.maze);
+		String oldType = solverType.getText();
+		if (oldType.equalsIgnoreCase("queue")) {
+			solver = new MazeSolverQueue(this.maze);
+		} else if (oldType.equalsIgnoreCase("stack")) {
+			solver = new MazeSolverStack(this.maze);
+		} else
+			throw new UnsupportedOperationException("Don't know how to solve using a: " + oldType);
 	}
 
 	/**
@@ -322,13 +359,13 @@ public class MazeApp extends JFrame implements ActionListener {
 
 			@Override
 			public boolean accept(File f) {
-				if (f.isDirectory())
+				if (f.isDirectory()) 
 					return true;
-
-
+				
+				
 				if (f.getName().startsWith("maze-"))
 					return true;
-
+				
 				return false;
 			}
 
@@ -377,7 +414,7 @@ public class MazeApp extends JFrame implements ActionListener {
 			// update the path
 			pathDisplay.setText(solver.getPath());
 //			if (solver.isSolved()) {
-//				pathDisplay.setText(solver.getPath());
+//				pathDisplay.setText("Maze is solved");
 //			} else {
 //				pathDisplay.setText("Maze is unsolved");
 //			}
@@ -386,7 +423,8 @@ public class MazeApp extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		System.out.println("WORKING"); //to bring up console, for easy quitting
-		new MazeApp();
+		new MazeAppV2();
 	}
 
 }
+

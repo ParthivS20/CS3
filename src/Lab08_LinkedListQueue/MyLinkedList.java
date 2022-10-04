@@ -1,9 +1,8 @@
-package Lab07_MyLinkedList;
+package Lab08_LinkedListQueue;
 
 import java.util.Iterator;
-import java.util.Objects;
 
-public class MyLinkedList implements Iterable<Integer> {
+class MyLinkedList<T> implements Iterable<T> {
     private ListNode head, tail;
     private int size;
 
@@ -13,12 +12,19 @@ public class MyLinkedList implements Iterable<Integer> {
         size = 0;
     }
 
-    MyLinkedList(int val) {
+    MyLinkedList(T val) {
         this();
         add(val);
     }
 
-    int get(int index) {
+    @SafeVarargs
+    MyLinkedList(T... vals) {
+        for(T v : vals) {
+            add(v);
+        }
+    }
+
+    T get(int index) {
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         ListNode node = head;
@@ -29,7 +35,7 @@ public class MyLinkedList implements Iterable<Integer> {
         return node.val;
     }
 
-    void add(int newVal) {
+    void add(T newVal) {
         if(size == 0) {
             head = new ListNode(newVal);
             tail = head;
@@ -41,7 +47,7 @@ public class MyLinkedList implements Iterable<Integer> {
         size++;
     }
 
-    void add(int newVal, int index) {
+    void add(T newVal, int index) {
         if(index < 0 || index > size) throw new IndexOutOfBoundsException();
 
         if(index == size) {
@@ -66,7 +72,7 @@ public class MyLinkedList implements Iterable<Integer> {
         size++;
     }
 
-    void set(int newVal, int index) {
+    void set(T newVal, int index) {
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         ListNode node = head;
@@ -76,13 +82,13 @@ public class MyLinkedList implements Iterable<Integer> {
         node.val = newVal;
     }
 
-    int remove(int index) {
+    T remove(int index) {
         if(isEmpty() || index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
         size--;
 
         if(index == 0) {
-            int val = head.val;
+            T val = head.val;
             head = head.next;
             return val;
         }
@@ -92,23 +98,26 @@ public class MyLinkedList implements Iterable<Integer> {
             node = node.next;
         }
 
-        int val = node.next.val;
-        if(node.next == tail) {
+        T val = node.next.val;
+        if(node.next.equals(tail)) {
             tail = node;
+            node.next = null;
         }
-        node.next = node.next.next;
+        else {
+            node.next = node.next.next;
+        }
 
         return val;
     }
 
-    boolean contains(int target) {
+    boolean contains(T target) {
         return indexOf(target) >= 0;
     }
 
-    int indexOf(int target) {
+    int indexOf(T target) {
         ListNode node = head;
         for(int i = 0; i < size; i++) {
-            if(node.val == target) return i;
+            if(node.val.equals(target)) return i;
             node = node.next;
         }
         return -1;
@@ -140,7 +149,7 @@ public class MyLinkedList implements Iterable<Integer> {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
+    public Iterator<T> iterator() {
         return new Iterator<>() {
             ListNode node = head;
 
@@ -150,8 +159,8 @@ public class MyLinkedList implements Iterable<Integer> {
             }
 
             @Override
-            public Integer next() {
-                int val = node.val;
+            public T next() {
+                T val = node.val;
                 node = node.next;
                 return val;
             }
@@ -164,10 +173,10 @@ public class MyLinkedList implements Iterable<Integer> {
     }
 
     private class ListNode {
-        int val;
+        T val;
         ListNode next;
 
-        ListNode(int val) {
+        ListNode(T val) {
             this.val = val;
         }
 
