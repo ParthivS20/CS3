@@ -1,14 +1,18 @@
 package Lab05_GuitarHero;
 
+import java.awt.*;
+
 public class GuitarHero {
     public static final String LETTERS = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static void main(String[] args) {
         GuitarString[] keyboard = getKeyboard();
+        StdDraw.setCanvasSize(1864 / 2, 260 / 2);
+        StdDraw.picture(0.5, 0.5, "src/Lab05_GuitarHero/keyboard.png", 1, 1);
 
         // the main input loop
         while(true) {
-            if (StdDraw.hasNextKeyTyped()) {
+            if(StdDraw.hasNextKeyTyped()) {
                 char x = StdDraw.nextKeyTyped();
                 //System.out.println(x);
 
@@ -16,6 +20,15 @@ public class GuitarHero {
                 if(key < 0) continue;
 
                 keyboard[key].pluck();
+            }
+
+            if(StdDraw.isMousePressed()) {
+                double x = StdDraw.mouseX();
+                for(int i = 0; i < LETTERS.length(); i++) {
+                    if(x > i * 0.026) {
+                        keyboard[i].pluck();
+                    }
+                }
             }
 
             // compute the superposition of the samples
