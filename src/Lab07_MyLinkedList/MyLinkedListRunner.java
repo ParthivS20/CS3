@@ -20,6 +20,8 @@ public class MyLinkedListRunner {
 		test07twoParamAdd();
 		
 		test08removeAll();
+
+		test09Iterable();
 	}
 
 	public static void test00constructorToString() {
@@ -158,6 +160,27 @@ public class MyLinkedListRunner {
 		}
 		else {
 			System.out.println("Fail: there's a problem when removing everything");
+		}
+	}
+
+	public static void test09Iterable() {
+		MyLinkedList list = new MyLinkedList();
+		list.add(0);
+		list.add(1);
+		list.add(3);
+		list.add(2, 2);
+		list.remove(0);
+
+		String x = "";
+		for(int n : list) {
+			x += n;
+		}
+
+		if(x.equals("123")) {
+			System.out.println("Pass: linked list seems to iterate properly!");
+		}
+		else {
+			System.out.println("Pass: linked list is not iterating properly!");
 		}
 	}
 	

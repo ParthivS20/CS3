@@ -1,19 +1,18 @@
 package Lab06_WordLadder;
 
 import Utils.ConsoleColors;
+import Utils.MyFile;
 
-import java.io.File;
 import java.util.*;
 
-public class WordLadderRunner {
+public class WordLadder {
     public static void main(String[] args) throws Exception {
         long startTime = System.nanoTime();
 
+        Scanner dictFile =  new Scanner(new MyFile("dictionary.txt", WordLadder.class));
+        Scanner inputFile = new Scanner(new MyFile("input.txt", WordLadder.class));
         Set<String> dictionary = new HashSet<>();
         Set<String> removedWords = new HashSet<>();
-
-        Scanner dictFile =  new Scanner(new File("src/Lab06_WordLadder/dictionary.txt"));
-        Scanner inputFile = new Scanner(new File("src/Lab06_WordLadder/input.txt"));
 
         while(dictFile.hasNext()) {
             dictionary.add(dictFile.nextLine().toLowerCase());
@@ -25,20 +24,20 @@ public class WordLadderRunner {
             String end = line[1];
 
             if(!dictionary.contains(start) || !dictionary.contains(end) || start.length() != end.length()) {
-                System.out.println("No ladder between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
+                System.out.println("No ladder found between " + ConsoleColors.GREEN.color(start) + " and " + ConsoleColors.CYAN.color(end));
                 continue;
             }
 
             if(start.equals(end)) {
-                System.out.println("Found a ladder! >>> [" + color(start, ConsoleColors.GREEN) + "]");
+                System.out.println("Found a ladder! >>> [" + ConsoleColors.GREEN.color(start) + "]");
                 continue;
             }
 
             Queue<Stack<String>> queue = new LinkedList<>();
             Stack<String> stack = new Stack<>();
 
-            queue.offer(stack);
             stack.push(start);
+            queue.offer(stack);
 
             dictionary.remove(start);
             removedWords.add(start);
@@ -55,7 +54,7 @@ public class WordLadderRunner {
                         String text = word;
 
                         if(topLadder.isEmpty()) {
-                            text = color(text, ConsoleColors.GREEN);
+                            text = ConsoleColors.GREEN.color(text);
                         }
                         else {
                             char[] word1 = word.toCharArray();
@@ -64,10 +63,10 @@ public class WordLadderRunner {
                             for(int i = 0; i < word1.length; i++) {
                                 if(word1[i] != word2[i]) {
                                     if(ladder.isBlank()) {
-                                        text = color(text.substring(0, i), ConsoleColors.CYAN) + color(word1[i] + "",  ConsoleColors.CYAN_BOLD_BRIGHT) + color(text.substring(i + 1), ConsoleColors.CYAN);
+                                        text = ConsoleColors.CYAN.color(text.substring(0, i)) + ConsoleColors.CYAN_BOLD_BRIGHT.color(word1[i] + "") + ConsoleColors.CYAN.color(text.substring(i + 1));
                                     }
                                     else {
-                                        text = text.substring(0, i) + color(word1[i] + "",  ConsoleColors.RED_BOLD) + text.substring(i + 1);
+                                        text = text.substring(0, i) + ConsoleColors.RED_BOLD.color(word1[i] + "") + text.substring(i + 1);
                                     }
                                     break;
                                 }
@@ -79,7 +78,6 @@ public class WordLadderRunner {
 
                     System.out.println("Found a ladder! >>> [" + ladder.substring(0, ladder.length() - 2) + "]");
                     ladderFound = true;
-                    break;
                 }
                 else {
                     char[] word = topWord.toCharArray();
@@ -104,17 +102,13 @@ public class WordLadderRunner {
             }
 
             if(!ladderFound) {
-                System.out.println("No ladder between " + color(start, ConsoleColors.GREEN) + " and " + color(end, ConsoleColors.CYAN));
+                System.out.println("No ladder found between " + ConsoleColors.GREEN.color(start) + " and " + ConsoleColors.CYAN.color(end));
             }
 
             dictionary.addAll(removedWords);
             removedWords.clear();
         }
 
-        System.out.println("Program Runtime: " + color((System.nanoTime() - startTime) / 1000000 + "ms", ConsoleColors.BLUE));
-    }
-
-    public static String color(String text, String color) {
-        return color + text + ConsoleColors.RESET;
+        System.out.println("Program Runtime: " + ConsoleColors.BLUE.color((System.nanoTime() - startTime) / 1000000 + "ms"));
     }
 }
