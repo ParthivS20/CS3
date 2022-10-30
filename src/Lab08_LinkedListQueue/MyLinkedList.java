@@ -2,7 +2,7 @@ package Lab08_LinkedListQueue;
 
 import java.util.Iterator;
 
-class MyLinkedList<T> implements Iterable<T> {
+public class MyLinkedList<T> implements Iterable<T> {
     private ListNode head, tail;
     private int size;
 
@@ -19,6 +19,7 @@ class MyLinkedList<T> implements Iterable<T> {
 
     @SafeVarargs
     MyLinkedList(T... vals) {
+        this();
         for(T v : vals) {
             add(v);
         }
@@ -27,16 +28,11 @@ class MyLinkedList<T> implements Iterable<T> {
     T get(int index) {
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
-        ListNode node = head;
-        for(int i = 0; i < index; i++) {
-            node = node.next;
-        }
-
-        return node.val;
+        return getNode(index).val;
     }
 
     void add(T newVal) {
-        if(size == 0) {
+        if(isEmpty()) {
             head = new ListNode(newVal);
             tail = head;
         }
@@ -61,10 +57,7 @@ class MyLinkedList<T> implements Iterable<T> {
             head.next = temp;
         }
         else {
-            ListNode node = head;
-            for(int i = 0; i < index - 1; i++) {
-                node = node.next;
-            }
+            ListNode node = getNode(index - 1);
             ListNode temp = node.next;
             node.next = new ListNode(newVal);
             node.next.next = temp;
@@ -75,11 +68,7 @@ class MyLinkedList<T> implements Iterable<T> {
     void set(T newVal, int index) {
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
 
-        ListNode node = head;
-        for(int i = 0; i < index; i++) {
-            node = node.next;
-        }
-        node.val = newVal;
+        getNode(index).val = newVal;
     }
 
     T remove(int index) {
@@ -93,25 +82,18 @@ class MyLinkedList<T> implements Iterable<T> {
             return val;
         }
 
-        ListNode node = head;
-        for(int i = 0; i < index - 1; i++) {
-            node = node.next;
-        }
-
+        ListNode node = getNode(index - 1);
         T val = node.next.val;
-        if(node.next.equals(tail)) {
+        if(node.next == tail) {
             tail = node;
-            node.next = null;
         }
-        else {
-            node.next = node.next.next;
-        }
+        node.next = node.next.next;
 
         return val;
     }
 
     boolean contains(T target) {
-        return indexOf(target) >= 0;
+        return indexOf(target) != -1;
     }
 
     int indexOf(T target) {
@@ -127,8 +109,11 @@ class MyLinkedList<T> implements Iterable<T> {
         return size;
     }
 
+    int sizeRecursive() {
+        return sizeRecursive(head);
+    }
     private int sizeRecursive(ListNode current) {
-        return current == null ? 0 : 1 + sizeRecursive(current.next);
+        return current == null ? 0 : sizeRecursive(current.next) + 1;
     }
 
     boolean isEmpty() {
@@ -140,8 +125,8 @@ class MyLinkedList<T> implements Iterable<T> {
         ListNode node = head;
         String out = "";
 
-        for(int i = 0; i < size; i++) {
-            out += node + (i < size - 1 ? ", " : "");
+        while(node != null) {
+            out += node + (node.next == null ? "" : ", ");
             node = node.next;
         }
 
@@ -178,11 +163,20 @@ class MyLinkedList<T> implements Iterable<T> {
 
         ListNode(T val) {
             this.val = val;
+            this.next = null;
         }
 
         @Override
         public String toString() {
             return "" + this.val;
         }
+    }
+
+    private ListNode getNode(int index) {
+        ListNode node = head;
+        for(int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node;
     }
 }

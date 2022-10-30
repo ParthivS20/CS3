@@ -425,6 +425,5 @@ public class MazeAppV2 extends JFrame implements ActionListener
 		System.out.println("WORKING"); //to bring up console, for easy quitting
 		new MazeAppV2();
 	}
-
 }
 
