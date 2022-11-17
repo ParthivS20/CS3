@@ -12,7 +12,7 @@ public class GemList {
 	void draw(double y) {
 		Node current = head;
 		for(int i = 0; i < size; i++) {
-			if(current.gem != null) {
+			if(current != null && current.gem != null) {
 				current.gem.draw(GemGame.indexToX(i), y);
 				current = current.next;
 			}
@@ -41,24 +41,22 @@ public class GemList {
 		return current.gem;
 	}
 
-	void remove(int index) {
-		if(size == 0 || index < 0 || index >= size) throw new IndexOutOfBoundsException();
-		size--;
-
-		if(index == 0) {
-			head = head.next;
+	void bomb(int index) {
+		/*if(size == 1) {
+			size--;
 			return;
 		}
 
-		Node current = head;
-		for(int i = 0; i < index - 1; i++) {
-			current = current.next;
+		if(size == 2) {
+			head = null;
+			size --;
 		}
 
-		current.next = current.next.next;
-		if(index == size - 1) {
-			tail = current.next;
+		/*Node current = head;
+		for(int i = 0; i < index - 2; i++) {
+			current = current.next;
 		}
+		System.out.println(current.gem);*/
 	}
 
 	void insertBefore(Gem gem, int index) {
@@ -89,8 +87,6 @@ public class GemList {
 		Node temp = current.next;
 		current.next = new Node(gem);
 		current.next.next = temp;
-
-		gem.placed(this, index);
 	}
 
 	int score() {

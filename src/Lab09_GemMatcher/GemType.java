@@ -1,17 +1,17 @@
 package Lab09_GemMatcher;
 
 enum GemType {
-    GREEN(1),
-    BLUE(0),
-    ORANGE(0),
+    GREEN(5),
+    BLUE(5),
+    ORANGE(5),
     BOMB(1, true);
 
     int chance;
     boolean isSpecial;
-    GemType(int chance) {
+    private GemType(int chance) {
         this.chance = chance;
     }
-    GemType(int chance, boolean isSpecial) {
+    private GemType(int chance, boolean isSpecial) {
         this(chance);
         this.isSpecial = isSpecial;
     }

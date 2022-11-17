@@ -33,13 +33,12 @@ public class Gem {
 				}
 			}
 
-			this.type = gemChoices.get((int) ((Math.random() * gemChoices.size())));
-			this.points = pointChoices[(int) ((Math.random() * pointChoices.length))];
+			type = gemChoices.get((int) ((Math.random() * gemChoices.size())));
+			points = pointChoices[(int) ((Math.random() * pointChoices.length))];
 		}
-		else {
-			this.type = type;
-			this.points = points;
-		}
+
+		this.type = type;
+		this.points = type.isSpecial ? -1 : points;
 	}
 
 	@Override
@@ -57,13 +56,22 @@ public class Gem {
 
 	void draw(double x, double y) {
 		StdDraw.picture(x, y, "gems/gem_" + String.valueOf(type).toLowerCase() + ".png");
-		StdDraw.setPenColor(StdDraw.WHITE);
-		StdDraw.setFont(new Font("Courier", Font.BOLD,16));
-		StdDraw.text(x, y, String.valueOf(points));
+
+		if(!type.isSpecial) {
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.setFont(new Font("Courier", Font.BOLD,16));
+			StdDraw.text(x, y, String.valueOf(points));
+		}
 	}
 
 	void placed(GemList list, int index) {
-		return;
+		switch(type) {
+			case BOMB:
+				list.bomb(index);
+				break;
+			default:
+				break;
+		}
 	}
 
 	/** Tester main method */

@@ -73,6 +73,7 @@ public class GemGame
 				    (mouseY < PLAYER1_Y + PLAYER_HALF_HEIGHT))
 				{
 					player1.insertBefore(current, xToIndex(mouseX));
+					current.placed(player1, xToIndex(mouseX));
 					current = null;
 					turn1 = !turn1;
 				}
@@ -81,6 +82,7 @@ public class GemGame
 				         (mouseY < PLAYER2_Y + PLAYER_HALF_HEIGHT))
 				{
 					player2.insertBefore(current, xToIndex(mouseX));
+					current.placed(player2, xToIndex(mouseX));
 					current = null;
 					turn1 = !turn1;
 				}
