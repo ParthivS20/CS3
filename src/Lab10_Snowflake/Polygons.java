@@ -1,3 +1,5 @@
+package Lab10_Snowflake;
+
 import javax.swing.*;
 import java.awt.*;
 
