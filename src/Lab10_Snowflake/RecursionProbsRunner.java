@@ -1,5 +1,3 @@
-package Lab10_Snowflake;
-
 import java.util.Stack;
 
 public class RecursionProbsRunner {
@@ -24,16 +22,21 @@ public class RecursionProbsRunner {
         probs.doubleUp(s);
         System.out.println("doubleUp(3, 7, 12, 9) >>> " + s);
 
-        for(int i = 1; i <= 8; i++) {
-            System.out.print("printThis(" + i + "):\t");
-            probs.printThis(i);
-            System.out.println();
-        }
-
-        for(int i = 1; i <= 10; i++) {
-            System.out.print("printNums2(" + i + "):\t");
-            probs.printNums2(i);
-            System.out.println();
-        }
+        System.out.print("printThis(1): ");
+        probs.printThis(1);
+        System.out.print("printThis(2): ");
+        probs.printThis(2);
+        System.out.print("printThis(3): ");
+        probs.printThis(3);
+        System.out.print("printThis(4): ");
+        probs.printThis(4);
+        System.out.print("printThis(5): ");
+        probs.printThis(5);
+        System.out.print("printThis(6): ");
+        probs.printThis(6);
+        System.out.print("printThis(7): ");
+        probs.printThis(7);
+        System.out.print("printThis(8): ");
+        probs.printThis(8);
     }
 }

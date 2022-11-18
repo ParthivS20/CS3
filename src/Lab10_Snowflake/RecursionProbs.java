@@ -1,5 +1,3 @@
-package Lab10_Snowflake;
-
 import java.util.Stack;
 
 public class RecursionProbs {
@@ -16,8 +14,7 @@ public class RecursionProbs {
     }
 
     int matchingDigits(int a, int b) {
-        if(a / 10 == 0 || b / 10 == 0) return a % 10 == b % 10 ? 1 : 0;
-        return (a % 10 == b % 10 ? 1 : 0) + matchingDigits(a / 10, b / 10);
+        return 0;
     }
 
     void doubleUp(Stack<Integer> nums) {
@@ -30,34 +27,25 @@ public class RecursionProbs {
     }
 
     void printThis(int n) {
-        if(n == 1) {
-            System.out.print("*");
-            return;
-        }
+        printThis((int) (Math.ceil(n / 2.0) - 1), "<");
+        System.out.print("*" + (n % 2 == 0 ? "*" : ""));
+        printThis((int) (Math.ceil(n / 2.0) - 1), ">");
+        System.out.println();
+    }
 
-        if(n == 2) {
-            System.out.print("**");
-            return;
-        }
-
-        System.out.print("<");
-        printThis(n - 2);
-        System.out.print(">");
+    private void printThis(int n, String x) {
+        if(n == 0) return;
+        System.out.print(x);
+        printThis(n - 1, x);
     }
 
     void printNums2(int n) {
-        if(n == 1) {
-            System.out.print("1 ");
-            return;
-        }
 
-        if(n == 2) {
-            System.out.print("1 1 ");
-            return;
-        }
+    }
 
-        System.out.print((n + 1) / 2 + " ");
-        printNums2(n - 2);
-        System.out.print((n + 1) / 2 + " ");
+    private void printNums2(int n, int m) {
+        if(n <= m) {
+            System.out.print(n);
+        }
     }
 }
