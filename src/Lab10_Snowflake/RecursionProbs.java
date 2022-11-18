@@ -1,3 +1,5 @@
+package Lab10_Snowflake;
+
 import java.util.Stack;
 
 public class RecursionProbs {
