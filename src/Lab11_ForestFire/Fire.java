@@ -1,8 +1,7 @@
 package Lab11_ForestFire;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,8 +20,8 @@ class Fire extends JFrame {
         // build the view
         view = new FireView();
         view.setBackground(Color.white);
-        Container c = getContentPane();
-        c.add(view, BorderLayout.CENTER);
+
+        add(view, BorderLayout.CENTER);
 
         // build the model
         model = new FireModel(view);
@@ -42,9 +41,7 @@ class Fire extends JFrame {
                 });
         smokey.setSize(570, 640);
 
-        //smokey.show();
         smokey.setVisible(true);
-
         smokey.solve();
     }
 }

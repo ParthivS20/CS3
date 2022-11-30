@@ -1,5 +1,7 @@
 package Lab11_ForestFire;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 class FireModel {
@@ -7,6 +9,8 @@ class FireModel {
     private FireCell[][] myGrid;
     private FireView myView;
     private boolean onett;
+    private FireCell finalCell;
+    private final int delay = 15;
 
     FireModel(FireView view) {
         myGrid = new FireCell[SIZE][SIZE];
@@ -28,16 +32,16 @@ class FireModel {
         if(r < 0 || r >= myGrid.length || c < 0 || c >= myGrid.length || onett) return;
 
         if(myGrid[r][c].light()) {
+            finalCell = myGrid[r][c];
             updateView();
             if(r == 0) {
-                System.out.println("Onett is in trouble!");
                 onett = true;
-                updateView(true);
+                updateView();
                 return;
             }
 
             try{
-                Thread.sleep( 7);
+                Thread.sleep(delay);
             }
             catch (InterruptedException ex) { }
 
@@ -48,24 +52,42 @@ class FireModel {
         }
     }
 
-    boolean solve() {
+    void solve() {
         for(int i = 0; i < myGrid.length; i++) {
             simulate(myGrid.length - 1, i);
         }
 
-        if(!onett) System.out.println("Onett is safe.");
+        while(!finalCell.color.equals(new Color(240, 40, 40))) {
+            updateView();
+            try{
+                Thread.sleep(delay);
+            }
+            catch (InterruptedException ex) { }
+        }
 
-        return onett;
+        if(onett){
+            System.out.println("Onett is in trouble!");
+            myView.add(new JLabel("Onett is in trouble!"), BorderLayout.SOUTH);
+
+            while(true) {
+                finalCell.blink();
+                myView.updateView(myGrid);
+                try{
+                    Thread.sleep( 500);
+                }
+                catch (InterruptedException ex) { }
+            }
+        }
+        else {
+            System.out.println("Onett is safe.");
+            myView.add(new JLabel("Onett is safe."), BorderLayout.SOUTH);
+        }
     }
 
     void updateView() {
-        updateView(false);
-    }
-
-    void updateView(boolean finalColor) {
         for(FireCell[] a : myGrid) {
             for(FireCell c : a) {
-                c.burn(finalColor);
+                c.burn();
             }
         }
         myView.updateView(myGrid);
