@@ -35,7 +35,20 @@ class FireCell {
         return false;
     }
 
-    void updateColor() {
+    //new Color(90, 190, 90) -> new Color(240, 40, 40)
+    void burn(boolean finalColor) {
+        final int step = 50;
+        if (status == BURNING) {
+            if(!finalColor) {
+                int r = Math.min(color.getRed() + (240 - 90) / step, 240);
+                int g = Math.max(color.getGreen() - (190 - 40) / step, 40);
+                int b = Math.max(color.getBlue() - (90 - 40) / step, 40);
 
+                color = new Color(r, g, b);
+            }
+            else {
+                color = new Color(240, 40, 40);
+            }
+        }
     }
 }

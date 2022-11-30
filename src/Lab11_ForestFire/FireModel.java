@@ -28,10 +28,11 @@ class FireModel {
         if(r < 0 || r >= myGrid.length || c < 0 || c >= myGrid.length || onett) return;
 
         if(myGrid[r][c].light()) {
-            myView.updateView(myGrid);
+            updateView();
             if(r == 0) {
                 System.out.println("Onett is in trouble!");
                 onett = true;
+                updateView(true);
                 return;
             }
 
@@ -55,5 +56,18 @@ class FireModel {
         if(!onett) System.out.println("Onett is safe.");
 
         return onett;
+    }
+
+    void updateView() {
+        updateView(false);
+    }
+
+    void updateView(boolean finalColor) {
+        for(FireCell[] a : myGrid) {
+            for(FireCell c : a) {
+                c.burn(finalColor);
+            }
+        }
+        myView.updateView(myGrid);
     }
 }
