@@ -3,18 +3,13 @@ package Lab10_Snowflake;
 import javax.swing.*;
 import java.awt.*;
 
-class SnowFlakePanel extends JPanel {
-	SnowFlakePanel() {
-		super.setPreferredSize(new Dimension(400, 400));
-		super.setBackground(Color.WHITE);
-	}
-
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+class SnowFlakePanel extends RecursiveDrawer {
+	@Override
+	void draw(Graphics g) {
 		blizzard(g);
 	}
 
-	void blizzard(Graphics g) {
+	private void blizzard(Graphics g) {
 		double margin = 0.01;
 		for(int i = 0; i < 30; i++) {
 			double size = randomPercent(0.02, 0.1);
@@ -23,11 +18,11 @@ class SnowFlakePanel extends JPanel {
 			double decay = randomPercent(0.2, 0.42);
 
 			g.setColor(randomColor());
-			draw(getWidth(centerX), getHeight(centerY), getWidth(size), decay, g);
+			snowflake(getWidth(centerX), getHeight(centerY), getWidth(size), decay, g);
 		}
 	}
 
-	private void draw(int x, int y, int lineSize, double decay, Graphics g) {
+	private void snowflake(int x, int y, int lineSize, double decay, Graphics g) {
 		int newLineSize = (int) (decay * lineSize);
 		if(newLineSize < 1) return;
 
@@ -35,16 +30,8 @@ class SnowFlakePanel extends JPanel {
 			int newX = (int) (lineSize * Math.cos(Math.toRadians(i))) + x;
 			int newY = (int) (lineSize * Math.sin(Math.toRadians(i))) + y;
 			g.drawLine(x, y, newX, newY);
-			draw(newX, newY, newLineSize, decay, g);
+			snowflake(newX, newY, newLineSize, decay, g);
 		}
-	}
-
-	private int getWidth(double scale) {
-		return (int) Math.round(getWidth() * scale);
-	}
-
-	private int getHeight(double scale) {
-		return (int) Math.round(getHeight() * scale);
 	}
 
 	private double randomPercent(double min, double max) {
