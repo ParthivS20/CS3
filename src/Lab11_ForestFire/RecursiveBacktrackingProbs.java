@@ -9,13 +9,13 @@ public class RecursiveBacktrackingProbs {
     }
 
     private void printBinary(int digits, String soFar) {
-         if(digits == 0) {
-             System.out.print(soFar + " ");
-             return;
-         }
+        if(digits == 0) {
+            System.out.print(soFar + " ");
+            return;
+        }
 
-         printBinary(digits - 1, soFar + 0);
-         printBinary(digits - 1, soFar + 1);
+        printBinary(digits - 1, soFar + 0);
+        printBinary(digits - 1, soFar + 1);
     }
 
     void climbStairs(int steps) {

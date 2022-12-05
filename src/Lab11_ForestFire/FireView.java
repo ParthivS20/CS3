@@ -24,17 +24,17 @@ class FireView extends JPanel {
         // keep each Fire cell square
         int boxSize = Math.min(testHeight, testWidth);
 
-        for( int r = 0; r < FireModel.SIZE; r++ ) {
-            for(int c = 0; c < FireModel.SIZE; c++ ) {
+        for(int r = 0; r < FireModel.SIZE; r++) {
+            for(int c = 0; c < FireModel.SIZE; c++) {
                 if(myGrid[r][c] != null) {
-                    int ulX = (c+1) * boxSize;
-                    int ulY = (r+1) * boxSize;
+                    int ulX = (c + 1) * boxSize;
+                    int ulY = (r + 1) * boxSize;
 
                     g.setColor(myGrid[r][c].color);
 
-                    int topLeftX = ulX+2, topLeftY = ulY+2;
-                    int sizeX = boxSize-2, sizeY = boxSize-2;
-                    g.fillRect( topLeftX, topLeftY, sizeX, sizeY);
+                    int topLeftX = ulX + 2, topLeftY = ulY + 2;
+                    int sizeX = boxSize - 2, sizeY = boxSize - 2;
+                    g.fillRect(topLeftX, topLeftY, sizeX, sizeY);
                 }
             }
         }
