@@ -1,11 +1,12 @@
 package Lab11_ForestFire;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class RecursiveBacktrackingProbs {
-    int[] coins = {25, 10, 5, 1};	
-    	
+    int[] coins = {25, 10, 5, 1};
+
     void printBinary(int digits) {
         printBinary(digits, "");
     }
@@ -52,10 +53,9 @@ public class RecursiveBacktrackingProbs {
     int getMax(List<Integer> nums, int limit) {
         return getMax(nums, limit, 0, nums.size());
     }
-    
+
     private int getMax(List<Integer> nums, int limit, int sum, int len) {
-	if(len == 0) return sum <= limit ? sum : -1;
-	return Math.max(getMax(nums, limit,sum + nums.get(len - 1), len - 1), getMax(nums, limit, sum, len - 1));
+        return len == 0 ? (sum <= limit ? sum : -1) : Math.max(getMax(nums, limit,sum + nums.get(len - 1), len - 1), getMax(nums, limit, sum, len - 1));
     }
 
     int makeChange(int amount) {
@@ -64,23 +64,58 @@ public class RecursiveBacktrackingProbs {
 
     private int makeChange(int amount, int i) {
         if(i >= coins.length) return 0;
-		if(amount <= 0) return amount == 0 ? 1 : 0;
+        if(amount <= 0) return amount == 0 ? 1 : 0;
 
-		while(coins[i] > amount) i++;
-		return makeChange(amount - coins[i], i) + makeChange(amount, i + 1);
+        while(coins[i] > amount) i++;
+
+        return makeChange(amount - coins[i], i) + makeChange(amount, i + 1);
     }
 
     void printMakeChange(int amount) {
-        printMakeChange(amount, 0);
+        System.out.println(" P  N  D  Q");
+        System.out.println("------------");
+
+        LinkedHashSet<String> solutions = new LinkedHashSet<>();
+        printMakeChange(amount, 0, new int[coins.length], solutions);
+
+        for(String s : solutions) {
+            System.out.println(s);
+        }
     }
 
-    private void printMakeChange(int amount, int counter) {
-		System.out.println(" P  N  D  Q");
-		System.out.println("------------");
+    private void printMakeChange(int amount, int i, int[] sequence, LinkedHashSet<String> solutions) {
+        if(i >= coins.length) return;
+        if(amount <= 0) {
+            if(amount == 0) solutions.add(Arrays.toString(sequence));
+            return;
+        }
+
+        while(coins[i] > amount) i++;
+
+        int[] temp = sequence.clone();
+        temp[coins.length - 1 - i]++;
+
+        printMakeChange(amount - coins[i], i, temp, solutions);
+        printMakeChange(amount, i + 1, sequence.clone(), solutions);
     }
 
     String longestCommonSub(String a, String b) {
-        return "";
+        return longestCommonSub(a, b, Math.min(a.length(), b.length()), "");
+    }
+
+    private String longestCommonSub(String a, String b, int len, String s) {
+        if(len == 0) {
+            int sCounter = 0;
+            for(int bCounter = 0; bCounter < b.length() && sCounter < s.length(); bCounter++) {
+                sCounter += b.charAt(bCounter) == s.charAt(sCounter) ? 1 : 0;
+            }
+
+            return sCounter == s.length() ? s : "";
+        }
+
+        String s1 = longestCommonSub(a, b, len - 1, a.charAt(len - 1) + s);
+        String s2 = longestCommonSub(a, b, len - 1, s);
+        return s1.length() > s2.length() ? s1 : s2;
     }
 }
 
@@ -92,10 +127,10 @@ class RecursiveBacktrackingProbsRunner {
         probs.printBinary(3);
         System.out.println();
 
-        System.out.println("clubStairs(4) >>> ");
+        System.out.println("clubStairs(4) >>");
         probs.climbStairs(4);
 
-        System.out.println("campsite(2, 1) >>> ");
+        System.out.println("campsite(2, 1) >>>");
         probs.campsite(2, 1);
 
         System.out.println("getMax(Arrays.asList(7, 30, 8, 22, 6, 1, 14), 19) >>> " + probs.getMax(Arrays.asList(7, 30, 8, 22, 6, 1, 14), 19));
@@ -103,32 +138,10 @@ class RecursiveBacktrackingProbsRunner {
         System.out.println("makeChange(25) >>> " + probs.makeChange(25));
         System.out.println("makeChange(100) >>> " + probs.makeChange(100));
 
-        probs.printMakeChange(25);
+        System.out.println("printMakeChange(11) >>>");
+        probs.printMakeChange(11);
 
         System.out.println("longestCommonSub(\"ABCDEFG\", \"BGCEHAF\") >>> " + probs.longestCommonSub("ABCDEFG", "BGCEHAF"));
         System.out.println("longestCommonSub(\"12345\", \"54321 21 54321\") >>> " + probs.longestCommonSub("12345", "54321 21 54321"));
     }
 }
-
-static void makeChangePrint(int amt, int index, int[] a) {
-		if(index >= 4) return;
-		if(amt <= 0) {
-			if(amt == 0) System.out.println(Arrays.toString(a));
-			return;
-		}
-		int [] d = {25, 10, 5, 1};
-		while(d[index] > amt) ++index;
-		int[] c = a.clone(); ++c[3 - index];
-		makeChangePrint(amt - d[index], index, c);
-		makeChangePrint(amt, index + 1, new int[]{a[0], a[1], a[2], a[3]});
-	}
-	static String longestCommonSub(String a, String b, int size, String curString) {
-		if(size == 0) {
-			int ind = 0;
-			for(int i = 0; i < b.length() && ind < curString.length(); ++i) 
-				ind += (b.charAt(i) == curString.charAt(ind) ? 1 : 0);
-			return (ind == curString.length() ? curString : "");
-		}
-		String ans = longestCommonSub(a, b, size-1, a.charAt(size-1) + curString), op2 = longestCommonSub(a, b, size-1, curString);
-		return (op2.length() > ans.length() ? op2 : ans); 
-	}
