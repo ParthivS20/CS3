@@ -8,30 +8,28 @@ public class RecursiveBacktrackingProbs {
         printBinary(digits, "");
     }
 
-    private void printBinary(int digits, String soFar) {
+    private void printBinary(int digits, String binary) {
         if(digits == 0) {
-            System.out.print(soFar + " ");
+            System.out.print(binary + " ");
             return;
         }
 
-        printBinary(digits - 1, soFar + 0);
-        printBinary(digits - 1, soFar + 1);
+        printBinary(digits - 1, binary + 0);
+        printBinary(digits - 1, binary + 1);
     }
 
     void climbStairs(int steps) {
         climbStairs(steps, "");
     }
 
-    private void climbStairs(int steps, String soFar) {
+    private void climbStairs(int steps, String sequence) {
         if(steps == 0) {
-            System.out.println("\t" + soFar.substring(0, soFar.length() - 2));
+            System.out.println("\t" + sequence.substring(0, sequence.length() - 2));
             return;
         }
 
-        climbStairs(steps - 1, soFar + "1, ");
-        if(steps - 2 >= 0) {
-            climbStairs(steps - 2, soFar + "2, ");
-        }
+        climbStairs(steps - 1, sequence + "1, ");
+        if(steps - 2 >= 0) climbStairs(steps - 2, sequence + "2, ");
     }
 
     void campsite(int x, int y) {
@@ -41,24 +39,22 @@ public class RecursiveBacktrackingProbs {
     private void campsite(int x, int y, String path) {
         if(x == 0 && y == 0) {
             System.out.println("\t" + path.substring(0, path.length() - 1));
+            return;
         }
 
-        if(x > 0) {
-            campsite(x - 1, y, path + "E ");
-        }
-
-        if(y > 0) {
-            campsite(x, y - 1, path + "N ");
-        }
-
-        if(x > 0 && y > 0) {
-            campsite(x - 1, y - 1, path + "NE ");
-        }
+        if(x > 0) campsite(x - 1, y, path + "E ");
+        if(y > 0) campsite(x, y - 1, path + "N ");
+        if(x > 0 && y > 0) campsite(x - 1, y - 1, path + "NE ");
     }
 
     int getMax(List<Integer> nums, int limit) {
-        return 0;
+        return getMax(nums, limit, 0, nums.size());
     }
+    
+    private int getMax(List<Integer> nums, int limit, int sum, int len) {
+		if(len == 0) return sum <= limit ? sum : -1;
+		return Math.max(getMax(nums, limit, len - 1, sum + nums.get(len - 1)), getMax(nums, limit, len - 1, sum));
+	}
 
     int makeChange(int amount) {
         return makeChange(amount, 0);
