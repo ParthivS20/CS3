@@ -52,9 +52,9 @@ public class RecursiveBacktrackingProbs {
     }
     
     private int getMax(List<Integer> nums, int limit, int sum, int len) {
-		if(len == 0) return sum <= limit ? sum : -1;
-		return Math.max(getMax(nums, limit, len - 1, sum + nums.get(len - 1)), getMax(nums, limit, len - 1, sum));
-	}
+	if(len == 0) return sum <= limit ? sum : -1;
+	return Math.max(getMax(nums, limit,sum + nums.get(len - 1), len - 1), getMax(nums, limit, sum, len - 1));
+    }
 
     int makeChange(int amount) {
         return makeChange(amount, 0);
