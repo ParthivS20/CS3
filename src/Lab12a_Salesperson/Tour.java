@@ -17,10 +17,10 @@ public class Tour {
 	 */
 	public void show() {
 		System.out.println(head.p);
-		Node next = head.next;
-		while(next != head) {
-			System.out.println(next.p);
-			next = next.next;
+		Node current = head.next;
+		while(current != head && current != null) {
+			System.out.println(current.p);
+			current = current.next;
 		}
 	}
 
