@@ -65,7 +65,7 @@ public class Tour {
 			head = new Node(p);
 		}
 		else {
-			double smallestDist = Integer.MAX_VALUE;
+			double smallestDist = Double.MAX_VALUE;
 			Node smallestDistNode = null;
 
 			Node current = head;
@@ -97,12 +97,13 @@ public class Tour {
 			head.next.next = head;
 		}
 		else {
-			double smallestInc = Integer.MAX_VALUE;
+			double smallestInc = Double.MAX_VALUE;
 			Node smallestIncNode = null;
 
 			Node current = head;
+			double currDistance = distance();
 			for(int i = 0; i < size; i++) {
-				double inc = distance() - current.p.distanceTo(current.next.p) + current.p.distanceTo(p) + p.distanceTo(current.next.p);
+				double inc = currDistance - current.p.distanceTo(current.next.p) + current.p.distanceTo(p) + p.distanceTo(current.next.p);
 				if(inc < smallestInc) {
 					smallestInc = inc;
 					smallestIncNode = current;
