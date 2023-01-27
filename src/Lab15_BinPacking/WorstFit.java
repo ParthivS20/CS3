@@ -36,8 +36,12 @@ public class WorstFit {
         for (int x : files) {
             totalSize += x;
 
-            Disk d = new Disk();
-            if (!disks.isEmpty() && disks.peek().getRemainingCapacity() >= x) d = disks.poll();
+            Disk d;
+            if (!disks.isEmpty() && disks.peek().getRemainingCapacity() >= x) {
+                d = disks.poll();
+            } else {
+                d = new Disk();
+            }
 
             assert d != null;
             d.addFile(x);
