@@ -14,7 +14,6 @@ public class WorstFitDecreasing {
         fileName = "data/" + fileName;
         files = new ArrayList<>();
         disks = new PriorityQueue<>();
-        disks.offer(new Disk());
 
         Scanner file = null;
         try {
