@@ -84,6 +84,6 @@ public enum ConsoleColors {
     }
 
     public String apply(String str) {
-        return this.ANSI_CODE + str + ConsoleColors.RESET;
+        return this + str + ConsoleColors.RESET;
     }
 }
