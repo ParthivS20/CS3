@@ -1,13 +1,14 @@
 package Lab15_BinPacking;
 
-import java.io.FileNotFoundException;
-import java.util.*;
 import Utils.PackageFile;
 
+import java.io.FileNotFoundException;
+import java.util.*;
+
 public class WorstFitDecreasing {
-    int totalSize;
-    ArrayList<Integer> files;
-    Queue<Disk> disks;
+    private int totalSize;
+    private ArrayList<Integer> files;
+    private Queue<Disk> disks;
 
     WorstFitDecreasing(String fileName){
         fileName = "data/" + fileName;
@@ -22,6 +23,7 @@ public class WorstFitDecreasing {
             e.printStackTrace();
         }
 
+        assert file != null;
         while(file.hasNextInt()) files.add(file.nextInt());
         files.sort(Comparator.reverseOrder());
     }
@@ -31,13 +33,10 @@ public class WorstFitDecreasing {
         for(int x : files) {
             totalSize += x;
 
-            Disk d;
-            if(!disks.isEmpty() && disks.peek().getRemainingCapacity() >= x) {
-                d = disks.poll();
-            } else {
-                d = new Disk();
-            }
+            Disk d = new Disk();
+            if (!disks.isEmpty() && disks.peek().getRemainingCapacity() >= x) d = disks.poll();
 
+            assert d != null;
             d.addFile(x);
             disks.offer(d);
         }
