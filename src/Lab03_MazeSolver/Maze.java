@@ -1,6 +1,6 @@
 package Lab03_MazeSolver;
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.io.IOException;
 import java.util.ArrayList;

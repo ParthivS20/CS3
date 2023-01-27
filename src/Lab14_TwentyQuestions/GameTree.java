@@ -1,6 +1,6 @@
 package Lab14_TwentyQuestions;
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

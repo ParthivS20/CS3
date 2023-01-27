@@ -1,4 +1,4 @@
-package Utils;
+package Util;
 
 public enum ConsoleColors {
     RESET("\033[0m"),

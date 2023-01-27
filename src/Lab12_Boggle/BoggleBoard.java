@@ -1,6 +1,6 @@
 package Lab12_Boggle;
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.io.FileNotFoundException;
 import java.util.Random;

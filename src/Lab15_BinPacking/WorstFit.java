@@ -1,6 +1,6 @@
 package Lab15_BinPacking;
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

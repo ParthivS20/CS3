@@ -1,6 +1,6 @@
 package Lab01_GameOfLife;
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

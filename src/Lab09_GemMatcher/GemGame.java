@@ -8,7 +8,7 @@ package Lab09_GemMatcher; /*****************************************************
  *               reaches 16 gems.  
  *************************************************************************/
 
-import Utils.StdDraw;
+import Util.StdDraw;
 
 import java.awt.*;
 

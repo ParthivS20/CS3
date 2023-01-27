@@ -1,6 +1,6 @@
 package Lab12a_Salesperson;
 
-import Utils.StdDraw;
+import Util.StdDraw;
 
 /*************************************************************************
  *  YOU DO NOT NEED TO MODIFY THIS FILE

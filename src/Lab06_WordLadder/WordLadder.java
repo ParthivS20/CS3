@@ -1,7 +1,7 @@
 package Lab06_WordLadder;
 
-import Utils.ConsoleColors;
-import Utils.PackageFile;
+import Util.ConsoleColors;
+import Util.PackageFile;
 
 import java.util.*;
 

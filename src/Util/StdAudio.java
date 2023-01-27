@@ -11,7 +11,7 @@
  *    - Assumes the audio is monaural, with sampling rate of 44,100.
  *
  *************************************************************************/
-package Utils;
+package Util;
 import java.applet.*;
 import java.io.*;
 import java.net.*;

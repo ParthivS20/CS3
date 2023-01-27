@@ -1,7 +1,7 @@
 package Lab12a_Salesperson;
 
-import Utils.PackageFile;
-import Utils.StdDraw;
+import Util.PackageFile;
+import Util.StdDraw;
 
 import java.awt.Color;
 import java.io.IOException;

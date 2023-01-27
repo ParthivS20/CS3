@@ -24,7 +24,7 @@ package Lab12_Boggle; /*********************************************************
  *
  ******************************************************************************/
 
-import Utils.PackageFile;
+import Util.PackageFile;
 
 import java.awt.Color;
 import java.awt.Component;

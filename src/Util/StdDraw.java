@@ -1,4 +1,4 @@
-package Utils; /******************************************************************************
+package Util; /******************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw
  *  Dependencies: none

@@ -10,8 +10,8 @@
  ****************************************************************************/
 package Lab05_GuitarHero;
 
-import Utils.StdAudio;
-import Utils.StdDraw;
+import Util.StdAudio;
+import Util.StdDraw;
 
 public class GuitarHeroLite {
 
