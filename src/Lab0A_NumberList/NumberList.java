@@ -78,9 +78,7 @@ class NumberList {
     private void doubleCapacity() {
         Integer[] temp = new Integer[list.length * 2];
 
-        for(int i = 0; i < size; i++) {
-            temp[i] = list[i];
-        }
+        if (size >= 0) System.arraycopy(list, 0, temp, 0, size);
 
         list = temp;
     }
