@@ -2,7 +2,7 @@ package Lab15_BinPacking;
 
 import java.util.ArrayList;
 
-public class Disk implements Comparable<Disk> {
+class Disk implements Comparable<Disk> {
     static final int MAX_CAPACITY = 1_000_000;
     static int nextID = 0;
 
