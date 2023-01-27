@@ -10,7 +10,7 @@ package Lab09_GemMatcher; /*****************************************************
 
 import Utils.StdDraw;
 
-import java.awt.Font;
+import java.awt.*;
 
 public class GemGame 
 {
@@ -64,7 +64,7 @@ public class GemGame
 				current = new Gem();
 
 			// Check for a click of the mouse, wait for release of the button
-			if (StdDraw.mousePressed())
+            if (StdDraw.isMousePressed())
 			{
 				mouseDown = true;
 			}
