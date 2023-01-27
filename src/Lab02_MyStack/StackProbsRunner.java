@@ -1,7 +1,7 @@
 package Lab02_MyStack;
 import java.util.Stack;
 
-public class Runner {
+public class StackProbsRunner {
     public static void main(String[] args) {
         StackProbs probs = new StackProbs();
         System.out.println(probs.doubleUp(makeStack(new int[]{1, 3, 5, 0, -1})));

@@ -1,4 +1,4 @@
-package Lab05_GuitarHero;
+package Utils;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

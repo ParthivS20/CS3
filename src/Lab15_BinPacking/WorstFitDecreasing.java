@@ -2,7 +2,7 @@ package Lab15_BinPacking;
 
 import java.io.FileNotFoundException;
 import java.util.*;
-import Utils.MyFile;
+import Utils.PackageFile;
 
 public class WorstFitDecreasing {
     int totalSize;
@@ -17,7 +17,7 @@ public class WorstFitDecreasing {
 
         Scanner file = null;
         try {
-            file = new Scanner(new MyFile(fileName, getClass()));
+            file = new Scanner(new PackageFile(fileName, getClass()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

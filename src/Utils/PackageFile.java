@@ -2,8 +2,8 @@ package Utils;
 
 import java.io.File;
 
-public class MyFile extends File {
-    public MyFile(String file, Class c) {
+public class PackageFile extends File {
+    public PackageFile(String file, Class c) {
         super("src/" + c.getPackage().toString().split(" ")[1] + "/" +file);
     }
 }

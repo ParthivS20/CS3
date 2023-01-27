@@ -1,4 +1,4 @@
-package Lab12a_Salesperson; /******************************************************************************
+package Utils; /******************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw
  *  Dependencies: none

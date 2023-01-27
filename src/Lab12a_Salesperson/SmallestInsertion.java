@@ -1,9 +1,9 @@
 package Lab12a_Salesperson;
 
-import Utils.MyFile;
+import Utils.PackageFile;
+import Utils.StdDraw;
 
 import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -28,7 +28,7 @@ public class SmallestInsertion
     	Scanner in = null;
     	
     	try {
-    		in = new Scanner(new MyFile("data/tsp1000.txt", SmallestInsertion.class)); //change to test other files
+    		in = new Scanner(new PackageFile("data/tsp1000.txt", SmallestInsertion.class)); //change to test other files
     	}
     	catch (IOException ex) {}
     	

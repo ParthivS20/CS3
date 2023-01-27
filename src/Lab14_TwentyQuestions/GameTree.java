@@ -1,8 +1,7 @@
 package Lab14_TwentyQuestions;
 
-import Utils.MyFile;
+import Utils.PackageFile;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +28,7 @@ public class GameTree {
 		this.fileName = "data/" + fileName;
 
 		try {
-			populate(null, null, new Scanner(new MyFile(this.fileName, getClass())));
+			populate(null, null, new Scanner(new PackageFile(this.fileName, getClass())));
 			current = root;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -139,7 +138,7 @@ public class GameTree {
 	 */
 	public void saveGame() {
 		try {
-			PrintWriter file = new PrintWriter(new MyFile(fileName, getClass()));
+			PrintWriter file = new PrintWriter(new PackageFile(fileName, getClass()));
 			printToFile(root, file);
 			file.close();
 		} catch (IOException io) {

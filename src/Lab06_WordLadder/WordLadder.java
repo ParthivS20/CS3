@@ -1,7 +1,7 @@
 package Lab06_WordLadder;
 
 import Utils.ConsoleColors;
-import Utils.MyFile;
+import Utils.PackageFile;
 
 import java.util.*;
 
@@ -9,8 +9,8 @@ public class WordLadder {
     public static void main(String[] args) throws Exception {
         long startTime = System.nanoTime();
 
-        Scanner dictFile =  new Scanner(new MyFile("dictionary.txt", WordLadder.class));
-        Scanner inputFile = new Scanner(new MyFile("input.txt", WordLadder.class));
+        Scanner dictFile =  new Scanner(new PackageFile("data/dictionary.txt", WordLadder.class));
+        Scanner inputFile = new Scanner(new PackageFile("data/input.txt", WordLadder.class));
         Set<String> dictionary = new HashSet<>();
         Set<String> removedWords = new HashSet<>();
 

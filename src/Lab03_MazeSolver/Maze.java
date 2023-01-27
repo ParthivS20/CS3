@@ -1,6 +1,7 @@
 package Lab03_MazeSolver;
 
-import java.io.File;
+import Utils.PackageFile;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Maze {
     public boolean loadMaze(String fileName) {
         Scanner file;
         try {
-            file = new Scanner(new File(fileName));
+            file = new Scanner(new PackageFile("data/" + fileName, getClass()));
         } catch (IOException e) {
             System.out.println("File \"" + fileName +  "\" was not found");
             return false;

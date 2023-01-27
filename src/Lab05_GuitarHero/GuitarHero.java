@@ -1,6 +1,7 @@
 package Lab05_GuitarHero;
 
-import java.awt.*;
+import Utils.StdAudio;
+import Utils.StdDraw;
 
 public class GuitarHero {
     public static final String LETTERS = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
@@ -8,7 +9,7 @@ public class GuitarHero {
     public static void main(String[] args) {
         GuitarString[] keyboard = getKeyboard();
         StdDraw.setCanvasSize(1864 / 2, 260 / 2);
-        StdDraw.picture(0.5, 0.5, "src/Lab05_GuitarHero/keyboard.png", 1, 1);
+        StdDraw.picture(0.5, 0.5, "src/Lab05_GuitarHero/assets/keyboard.png", 1, 1);
 
         // the main input loop
         while(true) {

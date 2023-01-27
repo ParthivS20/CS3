@@ -1,5 +1,7 @@
 package Lab12a_Salesperson;
 
+import Utils.StdDraw;
+
 /*************************************************************************
  *  YOU DO NOT NEED TO MODIFY THIS FILE
  *

@@ -11,7 +11,7 @@
  *    - Assumes the audio is monaural, with sampling rate of 44,100.
  *
  *************************************************************************/
-package Lab05_GuitarHero;
+package Utils;
 import java.applet.*;
 import java.io.*;
 import java.net.*;

@@ -10,6 +10,9 @@
  ****************************************************************************/
 package Lab05_GuitarHero;
 
+import Utils.StdAudio;
+import Utils.StdDraw;
+
 public class GuitarHeroLite {
 
     public static void main(String[] args) {

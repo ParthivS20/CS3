@@ -1,8 +1,7 @@
 package Lab12_Boggle;
 
-import Utils.MyFile;
+import Utils.PackageFile;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
@@ -90,7 +89,7 @@ public class BoggleBoard
     public BoggleBoard(String filename) {
     		Scanner in = null;
     		try {
-    			in = new Scanner(new MyFile(filename, getClass()));
+    			in = new Scanner(new PackageFile(filename, getClass()));
     		}
     		catch (FileNotFoundException f) {
     			System.out.println("Can't find file: " + filename);

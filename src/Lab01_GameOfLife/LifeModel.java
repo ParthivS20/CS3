@@ -1,8 +1,9 @@
 package Lab01_GameOfLife;
 
+import Utils.PackageFile;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -107,7 +108,7 @@ public class LifeModel implements ActionListener {
 			}
 		}
 		else {
-			Scanner input = new Scanner(new File("src/Lab01_GameOfLife/" + fileName));
+			Scanner input = new Scanner(new PackageFile("data/" + fileName, getClass()));
 			int numInitialCells = input.nextInt();
 			for (int count=0; count<numInitialCells; count++) {
 				r = input.nextInt();

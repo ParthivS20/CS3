@@ -24,7 +24,7 @@ package Lab12_Boggle; /*********************************************************
  *
  ******************************************************************************/
 
-import Utils.MyFile;
+import Utils.PackageFile;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -39,12 +39,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Timer;
@@ -417,25 +414,25 @@ public class BoggleGame extends JFrame {
 
         // all words in shakespeare
         Scanner in = null;
-        try { in = new Scanner(new MyFile(PATH + "dictionary-shakespeare.txt", getClass())); } catch (FileNotFoundException f) {}
+        try { in = new Scanner(new PackageFile(PATH + "dictionary-shakespeare.txt", getClass())); } catch (FileNotFoundException f) {}
         shakespeareDictionary = new HashSet<>();
         while (in.hasNext())
             shakespeareDictionary.add(in.next());
 
         // all words in shakespeare
-        try { in = new Scanner(new MyFile(PATH + "dictionary-nursery.txt", getClass())); } catch (FileNotFoundException f) {}
+        try { in = new Scanner(new PackageFile(PATH + "dictionary-nursery.txt", getClass())); } catch (FileNotFoundException f) {}
         nurseryDictionary = new HashSet<>();
         while (in.hasNext())
             nurseryDictionary.add(in.next());
 
         // about 20K common words
-        try { in = new Scanner(new MyFile(PATH + "dictionary-common.txt", getClass())); } catch (FileNotFoundException f) {}
+        try { in = new Scanner(new PackageFile(PATH + "dictionary-common.txt", getClass())); } catch (FileNotFoundException f) {}
         commonDictionary = new HashSet<>();
         while (in.hasNext())
             commonDictionary.add(in.next());
 
         // all words in Algorithms 4/e
-        try { in = new Scanner(new MyFile(PATH + "dictionary-algs4.txt", getClass())); } catch (FileNotFoundException f) {}
+        try { in = new Scanner(new PackageFile(PATH + "dictionary-algs4.txt", getClass())); } catch (FileNotFoundException f) {}
         algs4Dictionary = new HashSet<>();
         while (in.hasNext())
             algs4Dictionary.add(in.next());

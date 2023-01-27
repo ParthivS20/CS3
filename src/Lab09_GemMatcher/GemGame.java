@@ -8,6 +8,8 @@ package Lab09_GemMatcher; /*****************************************************
  *               reaches 16 gems.  
  *************************************************************************/
 
+import Utils.StdDraw;
+
 import java.awt.Font;
 
 public class GemGame 
@@ -124,7 +126,7 @@ public class GemGame
 
 		// Display the final message saying who won the game
 		StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.setFont(new Font("SansSerif", Font.BOLD, 24));
+       	StdDraw.setFont(new Font("SansSerif", Font.BOLD, 24));
         if (score1 == score2)
         	StdDraw.text(0.5, SCORE_Y, "Tie game!");
         else if (score1 > score2)

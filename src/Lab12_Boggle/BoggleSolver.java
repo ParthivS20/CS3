@@ -1,6 +1,6 @@
 package Lab12_Boggle;
 
-import Utils.MyFile;
+import Utils.PackageFile;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class BoggleSolver {
 		dictionary = new HashSet<>();
 
 		try {
-			Scanner file = new Scanner(new MyFile(dictionaryName, getClass()));
+			Scanner file = new Scanner(new PackageFile(dictionaryName, getClass()));
 			while(file.hasNext()) {
 				dictionary.add(file.next());
 			}

@@ -13,19 +13,9 @@ public class MinHeap<T extends Comparable<T>> {
 
     public MinHeap(T... vals) {
         size = vals.length;
-
-        int newHeapSize = 1;
-
-        /*
-        int x = 2;
-
-        while (newHeapSize < size) {
-            newHeapSize += x;
-            x *= 2;
-        }
+        int newHeapSize = size + 1;
 
         heap = (T[]) new Comparable[newHeapSize];
-         */
 
         for(int i = 0; i < vals.length; i++) {
             heap[i + 1] = vals[i];
