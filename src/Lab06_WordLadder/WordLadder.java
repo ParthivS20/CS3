@@ -24,12 +24,12 @@ public class WordLadder {
             String end = line[1];
 
             if(!dictionary.contains(start) || !dictionary.contains(end) || start.length() != end.length()) {
-                System.out.println("No ladder found between " + ConsoleColors.GREEN.color(start) + " and " + ConsoleColors.CYAN.color(end));
+                System.out.println("No ladder found between " + ConsoleColors.GREEN.apply(start) + " and " + ConsoleColors.CYAN.apply(end));
                 continue;
             }
 
             if(start.equals(end)) {
-                System.out.println("Found a ladder! >>> [" + ConsoleColors.GREEN.color(start) + "]");
+                System.out.println("Found a ladder! >>> [" + ConsoleColors.GREEN.apply(start) + "]");
                 continue;
             }
 
@@ -54,7 +54,7 @@ public class WordLadder {
                         String text = word;
 
                         if(topLadder.isEmpty()) {
-                            text = ConsoleColors.GREEN.color(text);
+                            text = ConsoleColors.GREEN.apply(text);
                         }
                         else {
                             char[] word1 = word.toCharArray();
@@ -63,10 +63,10 @@ public class WordLadder {
                             for(int i = 0; i < word1.length; i++) {
                                 if(word1[i] != word2[i]) {
                                     if(ladder.isBlank()) {
-                                        text = ConsoleColors.CYAN.color(text.substring(0, i)) + ConsoleColors.CYAN_BOLD_BRIGHT.color(word1[i] + "") + ConsoleColors.CYAN.color(text.substring(i + 1));
+                                        text = ConsoleColors.CYAN.apply(text.substring(0, i)) + ConsoleColors.CYAN_BOLD_BRIGHT.apply(word1[i] + "") + ConsoleColors.CYAN.apply(text.substring(i + 1));
                                     }
                                     else {
-                                        text = text.substring(0, i) + ConsoleColors.RED_BOLD.color(word1[i] + "") + text.substring(i + 1);
+                                        text = text.substring(0, i) + ConsoleColors.RED_BOLD.apply(word1[i] + "") + text.substring(i + 1);
                                     }
                                     break;
                                 }
@@ -102,13 +102,13 @@ public class WordLadder {
             }
 
             if(!ladderFound) {
-                System.out.println("No ladder found between " + ConsoleColors.GREEN.color(start) + " and " + ConsoleColors.CYAN.color(end));
+                System.out.println("No ladder found between " + ConsoleColors.GREEN.apply(start) + " and " + ConsoleColors.CYAN.apply(end));
             }
 
             dictionary.addAll(removedWords);
             removedWords.clear();
         }
 
-        System.out.println("Program Runtime: " + ConsoleColors.BLUE.color((System.nanoTime() - startTime) / 1000000 + "ms"));
+        System.out.println("Program Runtime: " + ConsoleColors.BLUE.apply((System.nanoTime() - startTime) / 1000000 + "ms"));
     }
 }

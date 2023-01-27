@@ -33,7 +33,6 @@ public enum ConsoleColors {
     CYAN_BOLD("\033[1;36m"),
     WHITE_BOLD("\033[1;37m"),
 
-
     //BOLD + BRIGHT COLORS
     BLACK_BOLD_BRIGHT("\033[1;90m"),
     RED_BOLD_BRIGHT("\033[1;91m"),
@@ -84,7 +83,7 @@ public enum ConsoleColors {
         return this.ANSI_CODE;
     }
 
-    public String color(String str) {
+    public String apply(String str) {
         return this.ANSI_CODE + str + ConsoleColors.RESET;
     }
 }
