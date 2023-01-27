@@ -29,7 +29,8 @@ public class WorstFitDecreasing {
     }
 
     void solve() {
-        Disk.nextID = 0;
+        Disk.resetDiskID();
+
         for(int x : files) {
             totalSize += x;
 

@@ -39,4 +39,8 @@ class Disk implements Comparable<Disk> {
         }
         return s.substring(0, s.length() - 1);
     }
+
+    static void resetDiskID() {
+        nextID = 0;
+    }
 }
