@@ -1,6 +1,6 @@
 package Lab16_MinHeap;
 
-public class Runner
+public class MinHeapRunner
 {
 	public static void main(String[] args) 
 	{
