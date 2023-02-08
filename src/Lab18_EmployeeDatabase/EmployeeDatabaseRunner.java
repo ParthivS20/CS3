@@ -2,6 +2,7 @@ package Lab18_EmployeeDatabase;
 
 public class EmployeeDatabaseRunner {
     public static void main(String[] args) {
+        double[] loadFactors = {0.1, 0.5, 0.8, 0.9, 0.99};
         EmployeeDatabase db = new EmployeeDatabase();
         db.method = EmployeeDatabase.ProbeMethod.QUADRATIC;
 
