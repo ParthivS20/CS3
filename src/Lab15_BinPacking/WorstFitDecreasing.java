@@ -10,7 +10,7 @@ public class WorstFitDecreasing {
     private ArrayList<Integer> files;
     private Queue<Disk> disks;
 
-    WorstFitDecreasing(String fileName){
+    WorstFitDecreasing(String fileName) {
         fileName = "data/" + fileName;
         files = new ArrayList<>();
         disks = new PriorityQueue<>();
@@ -33,19 +33,19 @@ public class WorstFitDecreasing {
         for(int x : files) {
             totalSize += x;
 
-            Disk d;
+            Disk disk;
             if (!disks.isEmpty() && disks.peek().getRemainingCapacity() >= x) {
-                d = disks.poll();
+                disk = disks.poll();
             } else {
-                d = new Disk();
+                disk = new Disk();
             }
 
-            assert d != null;
-            d.addFile(x);
-            disks.offer(d);
+            assert disk != null;
+            disk.addFile(x);
+            disks.offer(disk);
         }
 
-        System.out.println("Total size = " + ((double) totalSize / Disk.MAX_CAPACITY) + " GB");
+        System.out.println("Total size = " + Disk.MB_TO_GB(totalSize) + " GB");
         System.out.println("Disks req'd = " + disks.size());
 
         if(disks.size() < 100) {

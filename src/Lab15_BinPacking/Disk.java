@@ -3,8 +3,8 @@ package Lab15_BinPacking;
 import java.util.ArrayList;
 
 class Disk implements Comparable<Disk> {
-    static final int MAX_CAPACITY = 1_000_000;
-    static int nextID = 0;
+    private static final int MAX_CAPACITY = 1_000_000;
+    private static int nextID = 0;
 
     private int size;
     private final int id;
@@ -17,13 +17,17 @@ class Disk implements Comparable<Disk> {
         nextID++;
     }
 
+    Disk(int fileSize) {
+        this();
+        addFile(fileSize);
+    }
+
     int getRemainingCapacity() {
         return MAX_CAPACITY - size;
     }
 
-    void addFile(int size) {
-        files.add(size);
-        this.size += size;
+    static double MB_TO_GB(int mb) {
+        return (double) mb / 1_000_000;
     }
 
     @Override
@@ -42,5 +46,12 @@ class Disk implements Comparable<Disk> {
 
     static void resetDiskID() {
         nextID = 0;
+    }
+
+    void addFile(int size) {
+        if (size > getRemainingCapacity()) throw new IllegalArgumentException("File size too large");
+
+        files.add(size);
+        this.size += size;
     }
 }
