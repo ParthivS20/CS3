@@ -5,7 +5,7 @@ public class EmployeeDatabase {
     Entry[] entries;
 
     public EmployeeDatabase() {
-        entries = new Entry[100];
+        entries = new Entry[nextPrime(100)];
     }
 
     private int hash(int key) {
@@ -34,7 +34,7 @@ public class EmployeeDatabase {
                 return entries[hashedKey].employee;
             }
 
-            hashedKey = method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2);
+            hashedKey = (method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2)) % entries.length;
             i++;
         } while (hashedKey < entries.length);
 
@@ -69,5 +69,30 @@ public class EmployeeDatabase {
         public String toString() {
             return ID + ": " + employee;
         }
+    }
+
+    private boolean isPrime(int n) {
+        if (n == 2 || n == 3) return true;
+        if (n <= 1 || n % 2 == 0 || n % 3 == 0) return false;
+
+        for (int i = 5; i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) return false;
+        }
+
+        return true;
+    }
+
+    private int nextPrime(int n) {
+        if (n <= 1) return 2;
+
+        int prime = n - 1;
+        boolean found = false;
+
+        while (!found) {
+            prime++;
+            if (isPrime(prime)) found = true;
+        }
+
+        return prime;
     }
 }
