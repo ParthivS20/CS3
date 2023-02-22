@@ -1,11 +1,19 @@
 package Lab18_EmployeeDatabase;
 
+import java.util.ArrayList;
+
 public class EmployeeDatabase {
     public ProbeMethod method = ProbeMethod.LINEAR;
-    Entry[] entries;
+    private Entry[] entries;
+    private int buildCollisions;
+    private ArrayList<Integer> searchQueries;
+    private int size;
 
-    public EmployeeDatabase() {
-        entries = new Entry[nextPrime(100)];
+    public EmployeeDatabase(int employees) {
+        entries = new Entry[nextPrime(employees)];
+        size = 0;
+        buildCollisions = 0;
+        searchQueries = new ArrayList<>();
     }
 
     private int hash(int key) {
@@ -18,10 +26,12 @@ public class EmployeeDatabase {
         do {
             if (entries[hashedKey] == null || entries[hashedKey].ID == key) {
                 entries[hashedKey] = new Entry(key, value);
+                size++;
                 return;
             }
 
-            hashedKey = method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2);
+            buildCollisions++;
+            hashedKey = (method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2)) % entries.length;
             i++;
         } while (hashedKey < entries.length);
     }
@@ -30,7 +40,8 @@ public class EmployeeDatabase {
         int hashedKey = hash(key);
         int i = 1;
         do {
-            if (entries[hashedKey].ID == key) {
+            if (entries[hashedKey] != null && entries[hashedKey].ID == key) {
+                searchQueries.add(i);
                 return entries[hashedKey].employee;
             }
 
@@ -38,7 +49,34 @@ public class EmployeeDatabase {
             i++;
         } while (hashedKey < entries.length);
 
-        return new Employee(null);
+        searchQueries.add(i);
+        return null;
+    }
+
+    public void resetSearchQueries() {
+        searchQueries.clear();
+    }
+
+    public double getAvgQueries() {
+        double sum = 0;
+
+        for (int x : searchQueries) {
+            sum += x;
+        }
+
+        return sum / searchQueries.size();
+    }
+
+    public int getBuildCollisions() {
+        return buildCollisions;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getLength() {
+        return entries.length;
     }
 
     @Override
@@ -85,14 +123,13 @@ public class EmployeeDatabase {
     private int nextPrime(int n) {
         if (n <= 1) return 2;
 
-        int prime = n - 1;
         boolean found = false;
 
         while (!found) {
-            prime++;
-            if (isPrime(prime)) found = true;
+            found = isPrime(n);
+            n++;
         }
 
-        return prime;
+        return n - 1;
     }
 }
