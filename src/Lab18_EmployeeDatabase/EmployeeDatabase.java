@@ -47,7 +47,7 @@ public class EmployeeDatabase {
 
             hashedKey = (method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2)) % entries.length;
             i++;
-        } while (hashedKey < entries.length);
+        } while (hashedKey >= 0 && hashedKey < entries.length);
 
         searchQueries.add(i);
         return null;

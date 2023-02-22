@@ -68,6 +68,5 @@ public class EmployeeDatabaseRunner {
 
         System.out.println("Successful Search Timer: " + unsuccessfulSearchTimer + "ms");
         System.out.println("Average Successful Search Queries: " + db.getAvgQueries());
-        System.out.println();
     }
 }
