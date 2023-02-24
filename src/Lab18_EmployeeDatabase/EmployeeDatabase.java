@@ -24,7 +24,7 @@ public class EmployeeDatabase {
         int hashedKey = hash(key);
         int i = 1;
         do {
-            if (entries[hashedKey] == null || entries[hashedKey].ID == key) {
+            if (hashedKey >= 0 && (entries[hashedKey] == null || entries[hashedKey].ID == key)) {
                 entries[hashedKey] = new Entry(key, value);
                 size++;
                 return;
@@ -40,14 +40,14 @@ public class EmployeeDatabase {
         int hashedKey = hash(key);
         int i = 1;
         do {
-            if (entries[hashedKey] != null && entries[hashedKey].ID == key) {
+            if (hashedKey >= 0 && entries[hashedKey] != null && entries[hashedKey].ID == key) {
                 searchQueries.add(i);
                 return entries[hashedKey].employee;
             }
 
             hashedKey = (method == ProbeMethod.LINEAR ? hashedKey + i : hashedKey + (int) Math.pow(i, 2)) % entries.length;
             i++;
-        } while (hashedKey >= 0 && hashedKey < entries.length);
+        } while (hashedKey < entries.length);
 
         searchQueries.add(i);
         return null;

@@ -48,9 +48,7 @@ public class MinHeap<T extends Comparable<T>> {
     private void doubleCapacity() {
         T[] temp = (T[]) new Comparable[heap.length * 2];
 
-        for(int i = 1; i < heap.length; i++) {
-            temp[i] = heap[i];
-        }
+        if (heap.length - 1 >= 0) System.arraycopy(heap, 1, temp, 1, heap.length - 1);
         heap = temp;
     }
 
@@ -109,12 +107,12 @@ public class MinHeap<T extends Comparable<T>> {
             return;
         }
 
-        int tempInd = heap[getLeftChildIndex(index)].compareTo(heap[getRightChildIndex(index)]) < 0 ? getLeftChildIndex(index) : getRightChildIndex(index);
-        T temp = heap[tempInd];
-        heap[tempInd] = heap[index];
+        int i = heap[getLeftChildIndex(index)].compareTo(heap[getRightChildIndex(index)]) < 0 ? getLeftChildIndex(index) : getRightChildIndex(index);
+        T temp = heap[i];
+        heap[i] = heap[index];
         heap[index] = temp;
 
-        siftDown(tempInd);
+        siftDown(i);
     }
 
     @Override
