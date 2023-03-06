@@ -15,19 +15,18 @@ import java.util.List;
  *    
  * where tree is an object of your TreeMethods class, which has a getRoot() method
  */
-class TreePrinter 
-{
+class TreePrinter {
 	/** 
 	 * print the tree in a tree-like form
 	 * @param root the overall root of the tree
 	 */
-	public static void printTree(Node root) {
+	public static void printTree(HuffmanNode root) {
 		int maxLevel = TreePrinter.maxLevel(root);
 
 		printNodeInternal(Collections.singletonList(root), 1, maxLevel);
 	}
 
-	private static void printNodeInternal(List<Node> nodes, int level, int maxLevel) {
+	private static void printNodeInternal(List<HuffmanNode> nodes, int level, int maxLevel) {
 		if (nodes.isEmpty() || TreePrinter.isAllElementsNull(nodes))
 			return;
 
@@ -38,8 +37,8 @@ class TreePrinter
 
 		TreePrinter.printWhitespaces(firstSpaces);
 
-		List<Node> newNodes = new ArrayList<>();
-		for (Node node : nodes) {
+		List<HuffmanNode> newNodes = new ArrayList<>();
+		for (HuffmanNode node : nodes) {
 			if (node != null) {
 				System.out.print(node);
 				newNodes.add(node.left);
@@ -52,7 +51,7 @@ class TreePrinter
 
 			TreePrinter.printWhitespaces(betweenSpaces);
 		}
-		System.out.println("");
+		System.out.println();
 
 		for (int i = 1; i <= endgeLines; i++) {
 			for (int j = 0; j < nodes.size(); j++) {
@@ -77,7 +76,7 @@ class TreePrinter
 				TreePrinter.printWhitespaces(endgeLines + endgeLines - i);
 			}
 
-			System.out.println("");
+			System.out.println();
 		}
 
 		printNodeInternal(newNodes, level + 1, maxLevel);
@@ -88,7 +87,7 @@ class TreePrinter
 			System.out.print(" ");
 	}
 
-	private static int maxLevel(Node node) {
+	private static int maxLevel(HuffmanNode node) {
 		if (node == null)
 			return 0;
 

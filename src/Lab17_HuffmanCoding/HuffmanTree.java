@@ -1,27 +1,47 @@
 package Lab17_HuffmanCoding;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class HuffmanTree {
-    private Node root;
-}
+    private HuffmanNode root;
 
-class Node implements Comparable<Node> {
-    int count;
-    int c;
-    Node left, right;
+    HuffmanTree(int[] counts) {
+        assert counts.length == 256;
 
-    public Node(int count, int c) {
-        this.count = count;
-        this.c = c;
+        Queue<HuffmanNode> tree = new PriorityQueue<>();
+        for (int i = 0; i < 256; i++) {
+            if (counts[i] <= 0) continue;
+            tree.add(new HuffmanNode(counts[i], i));
+        }
+
+        tree.add(new HuffmanNode(counts.length, 1));
+
+        while (tree.size() > 1) {
+            HuffmanNode left = tree.poll();
+            HuffmanNode right = tree.poll();
+            HuffmanNode temp = new HuffmanNode(left.weight + right.weight, ' ');
+
+            temp.left = left;
+            temp.right = right;
+
+            tree.offer(temp);
+        }
     }
 
-    @Override
-    public int compareTo(Node o) {
-        return this.count - o.count;
+    HuffmanTree(String codeFile) {
+
     }
 
-    @Override
-    public String toString() {
-        if (c == -1) return count + "";
-        return (char) c + "";
+    void write(String fileName) {
+
+    }
+
+    void encode(BitOutputStream out, String fileName) {
+
+    }
+
+    void decode(BitInputStream in, String outFile) {
+
     }
 }
