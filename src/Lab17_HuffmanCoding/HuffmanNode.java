@@ -5,7 +5,7 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
     int ascii;
     HuffmanNode left, right;
 
-    public HuffmanNode(int weight, int ascii) {
+    public HuffmanNode(int ascii, int weight) {
         this.weight = weight;
         this.ascii = ascii;
     }
