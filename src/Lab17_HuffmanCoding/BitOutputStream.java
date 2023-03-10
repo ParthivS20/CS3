@@ -13,9 +13,9 @@ package Lab17_HuffmanCoding;//The BitOutputStream and BitInputStream classes pro
 //  public void close()
 //      closes the output, flushing the internal buffer
 
-import Util.PackageFile;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class BitOutputStream {
 	private FileOutputStream output;
@@ -27,8 +27,12 @@ public class BitOutputStream {
 	// pre : given file name is legal
 	// post: creates a BitOutputStream sending output to the file
 	public BitOutputStream(String file) {
+		this(new File(file));
+	}
+
+	public BitOutputStream(File file) {
 		try {
-			output = new FileOutputStream(new PackageFile(file, getClass()));
+			output = new FileOutputStream(file);
 		} catch (IOException e) {
 			throw new RuntimeException(e.toString());
 		}
@@ -43,6 +47,18 @@ public class BitOutputStream {
 		numDigits++;
 		if (numDigits == BYTE_SIZE)
 			flush();
+	}
+
+	public void writeBits(String bits) {
+		for (int i = 0; i < bits.length(); i++) {
+			writeBit(bits.charAt(i) - '0');
+		}
+	}
+
+	public void writeBits(char[] bits) {
+		for (char bit : bits) {
+			writeBit(bit - '0');
+		}
 	}
 
 	// post: Flushes the buffer.  If numDigits < BYTE_SIZE, this will 

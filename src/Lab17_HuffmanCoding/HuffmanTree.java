@@ -2,8 +2,8 @@ package Lab17_HuffmanCoding;
 
 import Util.PackageFile;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -43,6 +43,8 @@ public class HuffmanTree {
     }
 
     HuffmanTree(String codeFile) {
+        assert codeFile.endsWith(".code");
+
         root = new HuffmanNode('\0', 1);
         codes = new HashMap<>();
 
@@ -76,6 +78,7 @@ public class HuffmanTree {
                     node.right = new HuffmanNode(ascii, 0);
                 }
             }
+            file.close();
 
             //TreePrinter.printTree(root);
         } catch (IOException e) {
@@ -84,6 +87,7 @@ public class HuffmanTree {
     }
 
     void write(String fileName) {
+        assert fileName.endsWith(".code");
         try {
             PrintWriter file = new PrintWriter(new PackageFile(fileName, getClass()));
             write(file, root, "");
@@ -106,44 +110,48 @@ public class HuffmanTree {
         write(file, node.right, code + 1);
     }
 
-    void encode(BitOutputStream out, String fileName) {
+    void encode(String outFile, String inFile) {
+        assert outFile.endsWith(".short") && inFile.endsWith(".txt");
+
         try {
-            Scanner file = new Scanner(new PackageFile(fileName, getClass())));
+            Scanner in = new Scanner(new PackageFile(inFile, getClass()));
+            BitOutputStream out = new BitOutputStream(new PackageFile(outFile, getClass()));
 
-            while (file.hasNextLine()) {
-
-                for (char y : codes.get(c).toCharArray()) {
-                    out.writeBit(y == '0' ? 0 : 1);
-                }
+            int i = 0;
+            while (in.hasNextLine()) {
+                i++;
+                System.out.println(i);
+                for (char c : in.nextLine().toCharArray()) out.writeBits(codes.get((int) c));
+                if (in.hasNextLine()) out.writeBits(codes.get((int) '\n'));
             }
+            in.close();
 
-            for(char y : codes.get((int) PSEUDO_EOF).toCharArray()) {
-                out.writeBit(y == '0' ? 0 : 1);
-            }
-
+            out.writeBits(codes.get((int) PSEUDO_EOF));
             out.close();
         } catch (IOException e) {
-            System.out.println("Error opening " + fileName);
+            System.out.println("Error opening " + inFile);
         }
     }
 
-    void decode(BitInputStream in, String outFile) {
+    void decode(String inFile, String outFile) {
+        assert inFile.endsWith(".short") && outFile.endsWith(".new");
+
         try {
-            PrintWriter file = new PrintWriter(new PackageFile(outFile, getClass()));
+            BitInputStream in = new BitInputStream(new PackageFile(inFile, getClass()));
+            PrintWriter out = new PrintWriter(new PackageFile(outFile, getClass()));
 
             while (true) {
                 HuffmanNode node = root;
 
-                while (node.left != null && node.right != null) {
-                    node = in.readBit() == 0 ? node.left : node.right;
-                }
+                while (node.left != null && node.right != null) node = in.readBit() == 0 ? node.left : node.right;
 
-                char x = (char) node.ascii;
-
-                if (x == PSEUDO_EOF) return;
-
-                file.print(x);
+                char c = (char) node.ascii;
+                System.out.print(c);
+                if (c == PSEUDO_EOF) break;
+                out.print(c);
             }
+            in.close();
+            out.close();
         } catch (IOException e) {
             System.out.println("Error opening " + outFile);
         }

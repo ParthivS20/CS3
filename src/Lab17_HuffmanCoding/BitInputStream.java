@@ -13,7 +13,9 @@ package Lab17_HuffmanCoding;//The BitOutputStream and BitInputStream classes pro
 //  public void close()
 //      closes the input
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class BitInputStream {
 	private FileInputStream input;
@@ -25,6 +27,10 @@ public class BitInputStream {
 	// pre : given file name is legal
 	// post: creates a BitInputStream reading input from the file
 	public BitInputStream(String file) {
+		this(new File(file));
+	}
+
+	public BitInputStream(File file) {
 		try {
 			input = new FileInputStream(file);
 		} catch (IOException e) {
