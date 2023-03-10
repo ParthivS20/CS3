@@ -2,12 +2,10 @@ package Lab17_HuffmanCoding;
 
 import Util.PackageFile;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class HuffmanTree {
     private HuffmanNode root;
@@ -49,11 +47,12 @@ public class HuffmanTree {
         codes = new HashMap<>();
 
         try {
-            Scanner file = new Scanner(new PackageFile(codeFile, getClass()));
+            BufferedReader file = new BufferedReader(new FileReader(new PackageFile(codeFile, getClass())));
 
-            while (file.hasNextInt()) {
-                int ascii = Integer.parseInt(file.nextLine());
-                String code = file.nextLine();
+            String line;
+            while ((line = file.readLine()) != null) {
+                int ascii = Integer.parseInt(line);
+                String code = file.readLine();
 
                 codes.put(ascii, code);
 
@@ -114,15 +113,13 @@ public class HuffmanTree {
         assert outFile.endsWith(".short") && inFile.endsWith(".txt");
 
         try {
-            Scanner in = new Scanner(new PackageFile(inFile, getClass()));
+            BufferedReader in = new BufferedReader(new FileReader(new PackageFile(inFile, getClass())));
             BitOutputStream out = new BitOutputStream(new PackageFile(outFile, getClass()));
 
-            int i = 0;
-            while (in.hasNextLine()) {
-                i++;
-                System.out.println(i);
-                for (char c : in.nextLine().toCharArray()) out.writeBits(codes.get((int) c));
-                if (in.hasNextLine()) out.writeBits(codes.get((int) '\n'));
+            String line = in.readLine();
+            while (line != null) {
+                for (int i = 0; i < line.length(); i++) out.writeBits(codes.get((int) line.charAt(i)));
+                if ((line = in.readLine()) != null) out.writeBits(codes.get((int) '\n'));
             }
             in.close();
 
@@ -138,7 +135,7 @@ public class HuffmanTree {
 
         try {
             BitInputStream in = new BitInputStream(new PackageFile(inFile, getClass()));
-            PrintWriter out = new PrintWriter(new PackageFile(outFile, getClass()));
+            BufferedWriter out = new BufferedWriter(new FileWriter(new PackageFile(outFile, getClass())));
 
             while (true) {
                 HuffmanNode node = root;
@@ -146,9 +143,8 @@ public class HuffmanTree {
                 while (node.left != null && node.right != null) node = in.readBit() == 0 ? node.left : node.right;
 
                 char c = (char) node.ascii;
-                System.out.print(c);
                 if (c == PSEUDO_EOF) break;
-                out.print(c);
+                out.write(c);
             }
             in.close();
             out.close();

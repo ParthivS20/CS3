@@ -2,8 +2,9 @@ package Lab17_HuffmanCoding;
 
 import Util.PackageFile;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class HuffmanCompressor {
     static void compress(String fileName) {
@@ -12,21 +13,17 @@ public class HuffmanCompressor {
             String fN = fileName.substring(0, fileName.length() - 4);
             int[] counts = new int[256];
 
-            Scanner file = new Scanner(new PackageFile(fileName, HuffmanCompressor.class));
-            while(file.hasNextLine()) {
-                for (char x : file.nextLine().toCharArray()) counts[x]++;
-                if (file.hasNextLine()) counts['\n']++;
+            BufferedReader file = new BufferedReader(new FileReader(new PackageFile(fileName, HuffmanCompressor.class)));
+            String line = file.readLine();
+            while (line != null) {
+                for (int i = 0; i < line.length(); i++) counts[line.charAt(i)]++;
+                if ((line = file.readLine()) != null) counts['\n']++;
             }
             file.close();
 
             HuffmanTree tree = new HuffmanTree(counts);
-
-            System.out.println("Writing " + fN + ".code");
             tree.write(fN + ".code");
-
-            System.out.println("Encoding to " + fN + ".short");
             tree.encode(fN + ".short", fN + ".txt");
-            System.out.println("Encoding Finished");
         } catch (IOException e) {
             System.out.println("Error opening " + fileName);
         }
@@ -40,12 +37,12 @@ public class HuffmanCompressor {
 
     public static void main(String[] args) {
         String file = "happy hip hop";
-        //compress("data/" + file + ".txt");
-        //expand("data/" + file + ".code", "data/" + file + ".short");
+        compress("data/" + file + ".txt");
+        expand("data/" + file + ".code", "data/" + file + ".short");
 
         file = "short";
-        //compress("data/" + file + ".txt");
-        //expand("data/" + file + ".code", "data/" + file + ".short");
+        compress("data/" + file + ".txt");
+        expand("data/" + file + ".code", "data/" + file + ".short");
 
         file = "War and Peace";
         compress("data/" + file + ".txt");
