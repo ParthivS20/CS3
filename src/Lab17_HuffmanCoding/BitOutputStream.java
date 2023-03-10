@@ -13,6 +13,8 @@ package Lab17_HuffmanCoding;//The BitOutputStream and BitInputStream classes pro
 //  public void close()
 //      closes the output, flushing the internal buffer
 
+import Util.PackageFile;
+
 import java.io.*;
 
 public class BitOutputStream {
@@ -26,7 +28,7 @@ public class BitOutputStream {
 	// post: creates a BitOutputStream sending output to the file
 	public BitOutputStream(String file) {
 		try {
-			output = new FileOutputStream(file);
+			output = new FileOutputStream(new PackageFile(file, getClass()));
 		} catch (IOException e) {
 			throw new RuntimeException(e.toString());
 		}

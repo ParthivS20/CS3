@@ -2,8 +2,8 @@ package Lab17_HuffmanCoding;
 
 import Util.PackageFile;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -12,8 +12,7 @@ import java.util.Scanner;
 public class HuffmanTree {
     private HuffmanNode root;
     public static final char PSEUDO_EOF = 256;
-    private HashMap<Character, String> codes;
-    private HashMap<String, Character> characters;
+    private HashMap<Integer, String> codes;
 
     HuffmanTree(int[] counts) {
         assert counts.length == 256;
@@ -37,9 +36,9 @@ public class HuffmanTree {
             tree.offer(temp);
         }
 
+        root = tree.peek();
         treeToHashMap();
 
-        root = tree.peek();
         //TreePrinter.printTree(root);
     }
 
@@ -51,16 +50,14 @@ public class HuffmanTree {
             Scanner file = new Scanner(new PackageFile(codeFile, getClass()));
 
             while (file.hasNextInt()) {
-                int ascii = file.nextInt();
-                file.nextLine();
+                int ascii = Integer.parseInt(file.nextLine());
                 String code = file.nextLine();
 
-                codes.put((char) ascii, code);
-                characters.put(code, (char) ascii);
+                codes.put(ascii, code);
 
                 HuffmanNode node = root;
                 for (int i = 0; i < code.length() - 1; i++) {
-                    if (code.substring(i, i + 1).equals("0")) {
+                    if (code.charAt(i) == '0') {
                         if (node.left == null) {
                             node.left = new HuffmanNode('\0', 0);
                         }
@@ -73,7 +70,7 @@ public class HuffmanTree {
                     }
                 }
 
-                if (code.substring(code.length() - 1).equals("0")) {
+                if (code.endsWith("0")) {
                     node.left = new HuffmanNode(ascii, 0);
                 } else {
                     node.right = new HuffmanNode(ascii, 0);
@@ -111,17 +108,16 @@ public class HuffmanTree {
 
     void encode(BitOutputStream out, String fileName) {
         try {
-            Scanner file = new Scanner(new PackageFile(fileName, getClass()));
+            Scanner file = new Scanner(new PackageFile(fileName, getClass())));
 
-            while (file.hasNext()) {
-                for (char x : file.next().toCharArray()) {
-                    for (char y : codes.get(x).toCharArray()) {
-                        out.writeBit(y == '0' ? 0 : 1);
-                    }
+            while (file.hasNextLine()) {
+
+                for (char y : codes.get(c).toCharArray()) {
+                    out.writeBit(y == '0' ? 0 : 1);
                 }
             }
 
-            for (char y : codes.get(PSEUDO_EOF).toCharArray()) {
+            for(char y : codes.get((int) PSEUDO_EOF).toCharArray()) {
                 out.writeBit(y == '0' ? 0 : 1);
             }
 
@@ -153,33 +149,8 @@ public class HuffmanTree {
         }
     }
 
-    /*
-    void decode(BitInputStream in, String outFile) {
-        try {
-            PrintWriter file = new PrintWriter(new PackageFile(outFile, getClass()));
-
-            while(true) {
-                HuffmanNode node = root;
-
-                String code = "";
-                do {
-                    code += in.readBit();
-                } while(characters.get(code) == null);
-
-                char x = characters.get(code);
-
-                if(x == PSEUDO_EOF) return;
-
-                file.print(x);
-            }
-        } catch (IOException e) {
-            System.out.println("Error opening " + outFile);
-        }
-    }*/
-
     private void treeToHashMap() {
         codes = new HashMap<>();
-        characters = new HashMap<>();
 
         treeToHashMap(root, "");
     }
@@ -188,8 +159,7 @@ public class HuffmanTree {
         if (node == null) return;
 
         if (node.left == null && node.right == null) {
-            codes.put((char) node.ascii, code);
-            characters.put(code, (char) node.ascii);
+            codes.put(node.ascii, code);
             return;
         }
 
