@@ -8,8 +8,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class HuffmanTree {
-    private HuffmanNode root;
     public static final char PSEUDO_EOF = 256;
+
+    private HuffmanNode root;
     private HashMap<Integer, String> codes;
 
     HuffmanTree(int[] counts) {
@@ -36,8 +37,6 @@ public class HuffmanTree {
 
         root = tree.peek();
         treeToHashMap();
-
-        //TreePrinter.printTree(root);
     }
 
     HuffmanTree(String codeFile) {
@@ -59,14 +58,10 @@ public class HuffmanTree {
                 HuffmanNode node = root;
                 for (int i = 0; i < code.length() - 1; i++) {
                     if (code.charAt(i) == '0') {
-                        if (node.left == null) {
-                            node.left = new HuffmanNode('\0', 0);
-                        }
+                        if (node.left == null) node.left = new HuffmanNode('\0', 0);
                         node = node.left;
                     } else {
-                        if (node.right == null) {
-                            node.right = new HuffmanNode('\0', 0);
-                        }
+                        if (node.right == null) node.right = new HuffmanNode('\0', 0);
                         node = node.right;
                     }
                 }
@@ -78,8 +73,6 @@ public class HuffmanTree {
                 }
             }
             file.close();
-
-            //TreePrinter.printTree(root);
         } catch (IOException e) {
             System.out.println("Error opening " + codeFile);
         }
@@ -88,25 +81,28 @@ public class HuffmanTree {
     void write(String fileName) {
         assert fileName.endsWith(".code");
         try {
-            PrintWriter file = new PrintWriter(new PackageFile(fileName, getClass()));
-            write(file, root, "");
-            file.close();
+            BufferedWriter out = new BufferedWriter(new FileWriter(new PackageFile(fileName, getClass())));
+            write(out, root, "");
+            out.close();
         } catch (IOException e) {
             System.out.println("Error opening " + fileName);
         }
     }
 
-    private void write(PrintWriter file, HuffmanNode node, String code) {
+    private void write(BufferedWriter out, HuffmanNode node, String code) {
         if (node == null) return;
 
         if (node.left == null && node.right == null) {
-            file.println(node.ascii);
-            file.println(code);
+            try {
+                out.write(String.valueOf(node.ascii) + '\n');
+                out.write(code + '\n');
+            } catch (IOException ignored) {
+            }
             return;
         }
 
-        write(file, node.left, code + 0);
-        write(file, node.right, code + 1);
+        write(out, node.left, code + 0);
+        write(out, node.right, code + 1);
     }
 
     void encode(String outFile, String inFile) {
@@ -155,7 +151,6 @@ public class HuffmanTree {
 
     private void treeToHashMap() {
         codes = new HashMap<>();
-
         treeToHashMap(root, "");
     }
 

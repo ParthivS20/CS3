@@ -9,7 +9,7 @@ import java.io.IOException;
 public class HuffmanCompressor {
     static void compress(String fileName) {
         try {
-            System.out.println("Starting " + fileName);
+            System.out.println("Reading " + fileName + "...");
             String fN = fileName.substring(0, fileName.length() - 4);
             int[] counts = new int[256];
 
@@ -22,7 +22,11 @@ public class HuffmanCompressor {
             file.close();
 
             HuffmanTree tree = new HuffmanTree(counts);
+
+            System.out.println("Writing " + fN + ".code...");
             tree.write(fN + ".code");
+
+            System.out.println("Writing " + fN + ".short...");
             tree.encode(fN + ".short", fN + ".txt");
         } catch (IOException e) {
             System.out.println("Error opening " + fileName);
@@ -30,8 +34,8 @@ public class HuffmanCompressor {
     }
 
     static void expand(String codeFile, String fileName) {
-        String fN = fileName.substring(0, fileName.length() - 6);
         HuffmanTree tree = new HuffmanTree(codeFile);
+        String fN = fileName.substring(0, fileName.length() - 6);
         tree.decode(fileName, fN + ".new");
     }
 
@@ -40,6 +44,7 @@ public class HuffmanCompressor {
         compress("data/" + file + ".txt");
         expand("data/" + file + ".code", "data/" + file + ".short");
 
+        /*
         file = "short";
         compress("data/" + file + ".txt");
         expand("data/" + file + ".code", "data/" + file + ".short");
@@ -47,5 +52,6 @@ public class HuffmanCompressor {
         file = "War and Peace";
         compress("data/" + file + ".txt");
         expand("data/" + file + ".code", "data/" + file + ".short");
+        */
     }
 }
