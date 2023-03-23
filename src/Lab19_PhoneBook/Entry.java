@@ -3,7 +3,7 @@ package Lab19_PhoneBook;
 class Entry<K, V> {
     K key;
     V value;
-    Entry next;
+    Entry<K, V> next;
 
     Entry(K key, V value) {
         this.key = key;
