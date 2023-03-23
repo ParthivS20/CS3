@@ -14,12 +14,12 @@ public class PhotoMagicDeluxe extends PhotoMagic{
     }
 
     public static void main(String[] args) {
-        Picture pic = new Picture(new PackageFile("data/mystery.png", PhotoMagic.class));
+        Picture pic = new Picture(new PackageFile("data/mystery.png", PhotoMagicDeluxe.class));
         pic.show();
 
         LFSR lfsr = new LFSR(getSeed("OPENSESAME"), 58);
         Picture transformed = transform(pic, lfsr);
         transformed.show();
-        transformed.save(new PackageFile("data/mystery-transformed.png", PhotoMagic.class));
+        transformed.save(new PackageFile("data/mystery-transformed.png", PhotoMagicDeluxe.class));
     }
 }
