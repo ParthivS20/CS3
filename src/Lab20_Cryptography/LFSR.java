@@ -138,9 +138,11 @@ public class LFSR {
      * simulate k steps and return k-bit integer
      */
     public int generate(int k) {
-        //TODO
-
-        return 0; //replace
+        int x = 0;
+        for(int i = 0; i < k; i++) {
+            x = 2 * x + step();
+        }
+        return  x;
     }
 
     @Override
