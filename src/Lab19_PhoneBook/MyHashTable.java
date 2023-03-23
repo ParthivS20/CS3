@@ -5,7 +5,7 @@ public class MyHashTable<K, V> {
     private int size;
 
     MyHashTable() {
-        this(500000);
+        this(50000);
     }
 
     MyHashTable(int size) {
