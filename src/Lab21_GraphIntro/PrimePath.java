@@ -1,5 +1,7 @@
 package Lab21_GraphIntro;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class PrimePath {
@@ -9,18 +11,55 @@ public class PrimePath {
         int startNum = input.nextInt();
         int endNum = input.nextInt();
 
-        assert startNum / 1000 >= 1 && endNum / 1000 >= 1;
+        assert startNum >= 1000 &&
+                startNum < 10000 &&
+                endNum >= 1000 &&
+                endNum < 10000 &&
+                isPrime(startNum) &&
+                isPrime(endNum);
 
-        System.out.println(shortestPath(startNum, endNum));
+        System.out.println(bfs(startNum, endNum));
     }
 
-    private static int shortestPath(int startNum, int endNum) {
-        boolean[] primes = new boolean[1000];
-        for(int i = 1000; i < 10000; i++) {
-            if(isPrime(i)) primes[i % 1000] = true;
+    private static int bfs(int startNum, int endNum) {
+        if (startNum == endNum) return 0;
+
+        boolean[] primes = getPrimes();
+        boolean[][] matrix = new boolean[10000][10000];
+
+        for (int i = 1000; i < 10000; i++) {
+            if (primes[i]) {
+                for (int j = i + 1; j < 10000; j++) {
+                    if (primes[j] && differsByOneDigit(i, j)) {
+                        matrix[i][j] = true;
+                        matrix[j][i] = true;
+                    }
+                }
+            }
         }
-        System.out.println(primes[0]);
-        return 1;
+
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[10000];
+
+        queue.offer(startNum);
+        visited[startNum] = true;
+
+        int[] steps = new int[10000];
+
+        while (!queue.isEmpty()) {
+            int temp = queue.poll();
+            if (temp == endNum) return steps[temp];
+
+            for (int i = 1000; i < 10000; i++) {
+                if (matrix[temp][i] && !visited[i]) {
+                    queue.offer(i);
+                    visited[i] = true;
+                    steps[i] = steps[temp] + 1;
+                }
+            }
+        }
+
+        return -1;
     }
 
     private static boolean isPrime(int n) {
@@ -34,10 +73,24 @@ public class PrimePath {
         return true;
     }
 
+    private static boolean[] getPrimes() {
+        boolean[] primes = new boolean[10000];
+        for (int i = 1000; i < 10000; i++) {
+            if (isPrime(i)) primes[i] = true;
+        }
+
+        return primes;
+    }
+
     private static boolean differsByOneDigit(int n1, int n2) {
+        if (n1 == n2) return false;
+
         int count = 0;
         while(n1 > 0 && n2 > 0) {
-            if(n1 % 10 != n2 % 10) count++;
+            if (n1 % 10 != n2 % 10) {
+                if (count++ > 1) return false;
+            }
+
             n1 /= 10;
             n2 /= 10;
         }
