@@ -8,9 +8,9 @@ import java.util.Scanner;
 public class Scooby {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(new PackageFile("data/scooby.dat", Scooby.class));
-        int n = Integer.parseInt(input.nextLine());
+        int N = Integer.parseInt(input.nextLine());
 
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < N; i++) {
             boolean[][] matrix = new boolean[26][26];
             String[] passages = input.nextLine().split(" ");
 
