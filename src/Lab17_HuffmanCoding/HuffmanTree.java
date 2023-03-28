@@ -19,10 +19,10 @@ public class HuffmanTree {
         Queue<HuffmanNode> tree = new PriorityQueue<>();
         for (int i = 0; i < 256; i++) {
             if (counts[i] <= 0) continue;
-            tree.add(new HuffmanNode(i, counts[i]));
+            tree.offer(new HuffmanNode(i, counts[i]));
         }
 
-        tree.add(new HuffmanNode(PSEUDO_EOF, 1));
+        tree.offer(new HuffmanNode(PSEUDO_EOF, 1));
 
         while (tree.size() > 1) {
             HuffmanNode left = tree.poll();

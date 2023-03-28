@@ -30,11 +30,6 @@ public class Graph {
         }
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        Graph g = new Graph(new Scanner(new PackageFile("data/input6.txt", Graph.class)));
-        System.out.println(g);
-    }
-
     double distance(int from, int to) {
         return matrix[from].distanceTo(matrix[to]);
     }
@@ -46,5 +41,10 @@ public class Graph {
             out += v + "\n";
         }
         return out;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        Graph g = new Graph(new Scanner(new PackageFile("data/input6.txt", Graph.class)));
+        System.out.println(g);
     }
 }

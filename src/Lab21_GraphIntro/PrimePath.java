@@ -27,10 +27,10 @@ public class PrimePath {
         boolean[] primes = getPrimes();
         boolean[][] matrix = new boolean[10000][10000];
 
-        for (int i = 1000; i < 10000; i++) {
-            if (primes[i]) {
-                for (int j = i + 1; j < 10000; j++) {
-                    if (primes[j] && differsByOneDigit(i, j)) {
+        for(int i = 1000; i < 10000; i++) {
+            if(primes[i]) {
+                for(int j = i + 1; j < 10000; j++) {
+                    if(primes[j] && differsByOneDigit(i, j)) {
                         matrix[i][j] = true;
                         matrix[j][i] = true;
                     }
@@ -46,11 +46,11 @@ public class PrimePath {
 
         int[] steps = new int[10000];
 
-        while (!queue.isEmpty()) {
+        while(!queue.isEmpty()) {
             int temp = queue.poll();
             if (temp == endNum) return steps[temp];
 
-            for (int i = 1000; i < 10000; i++) {
+            for(int i = 1000; i < 10000; i++) {
                 if (matrix[temp][i] && !visited[i]) {
                     queue.offer(i);
                     visited[i] = true;

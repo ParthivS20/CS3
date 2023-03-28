@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex implements Comparable<Vertex> {
-    int x;
-    int y;
-    int id;
+    final int x;
+    final int y;
+    final int id;
 
     List<Integer> edges;
     boolean visited;
@@ -31,8 +31,8 @@ public class Vertex implements Comparable<Vertex> {
     }
 
     @Override
-    public int compareTo(Vertex vertex) {
-        return (int) (this.distance - vertex.distance);
+    public int compareTo(Vertex other) {
+        return Double.compare(this.distance, other.distance);
     }
 
     @Override
