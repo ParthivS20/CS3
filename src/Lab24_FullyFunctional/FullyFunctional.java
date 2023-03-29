@@ -86,6 +86,6 @@ public class FullyFunctional {
     }
 
     public static void main(String[] args) {
-        q15_sumNumbers("1a2b 3");
+
     }
 }

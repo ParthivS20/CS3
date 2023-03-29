@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -44,7 +45,11 @@ public class Circles extends Application {
      * this application its behavior.
      */
     private void addButtonHandler() {
-        // You must write
+        addToCanvas(new Circle(0, 0, CELL_SIZE / 4));
+    }
+
+    private void addToCanvas(Circle circle) {
+        canvas.getChildren().add(circle);
     }
 
     /**
