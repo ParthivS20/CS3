@@ -80,7 +80,7 @@ public class FunctionalProgramming {
     public static void q10(Integer... args) {
         List<Integer> list = Arrays.asList(args);
 
-        int max = list.stream().max(Integer::compareTo).orElse(0);
+        int max = list.stream().max(Integer::compareTo).orElse(-1);
         System.out.println(max);
     }
 
@@ -99,10 +99,10 @@ public class FunctionalProgramming {
     //Get the age of the oldest Person in a List<Person> without implementing Comparable
     public static void q12() {
         class Person {
-            final String name;
-            final int    age;
+            private final String name;
+            private final int age;
 
-            Person(String name, int age) {
+            private Person(String name, int age) {
                 this.name = name;
                 this.age  = age;
             }
@@ -122,7 +122,7 @@ public class FunctionalProgramming {
         users.add(new Person("Albert",  20));
         users.add(new Person("Charlie", 30));
 
-        int oldestAge = users.stream().mapToInt(Person::getAge).max().orElse(0);
+        int oldestAge = users.stream().mapToInt(Person::getAge).max().orElse(-1);
         System.out.println(oldestAge);
     }
 }
