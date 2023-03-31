@@ -1,43 +1,47 @@
 package Lab24_FullyFunctional;
 
-import javafx.application.Application;
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.stream.Stream;
 
 /**
- * A lab exercise to introduce Java 8 lambdas and streams.
+ * A class to introduce Java 8 lambdas and streams.
  * @author Your name here
  */
-public class Circles extends Application {
-    public static final int ROWS      = 4;
-    public static final int COLS      = 5;
+public class Circles extends VBox {
+    public static final int ROWS = 4;
+    public static final int COLS = 5;
     public static final int CELL_SIZE = 100;
 
-    private VBox   root;
-    private Pane   canvas;
+    private Pane canvas;
     private Button starter;
 
-    @Override
-    public void start(Stage primaryStage) {
-        root = new VBox();
+    private int row;
+    private int col;
+
+    Circles() {
+        setAlignment(Pos.CENTER);
+        
         canvas = new Pane();
+        canvas.setPrefSize(COLS * CELL_SIZE, ROWS * CELL_SIZE);
+        
         starter = new Button("Circles");
 
-        root.setAlignment(Pos.CENTER);
-        canvas.setPrefSize(COLS * CELL_SIZE, ROWS * CELL_SIZE);
-
+        getChildren().addAll(canvas, starter);
+        
         addButtonHandler();  // You must write
 
-        root.getChildren().addAll(canvas, starter);
-
-        primaryStage.setTitle("Java 8 Lab Exercise");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        row = 0;
+        col = 0;
     }
 
     /**
@@ -45,18 +49,61 @@ public class Circles extends Application {
      * this application its behavior.
      */
     private void addButtonHandler() {
-        addToCanvas(new Circle(0, 0, CELL_SIZE / 4));
+        starter.setOnAction(e -> {
+            canvas.getChildren().clear();
+            addAllRowsToCanvas(makeAllRows());
+        });
     }
 
     private void addToCanvas(Circle circle) {
+        double fromX = canvas.getWidth();
+        double fromY = canvas.getHeight();
+        double toX = CELL_SIZE * (col + 0.5);
+        double toY = CELL_SIZE * (row + 0.5);
+
+        circle.setCenterX(fromX);
+        circle.setCenterY(fromY);
+        circle.setFill(new Color(Math.random(), Math.random(), Math.random(), 1.0));
+
         canvas.getChildren().add(circle);
+
+        TranslateTransition translation = new TranslateTransition();
+        translation.setNode(circle);
+        translation.setByX(toX - fromX);
+        translation.setByY(toY - fromY);
+        translation.play();
+
+        double scaleFactor = Math.random() * 0.4 + 0.35;
+        ScaleTransition scaler = new ScaleTransition(Duration.seconds(Math.random() * 0.75 + 0.25));
+        scaler.setNode(circle);
+        scaler.setByX(scaleFactor);
+        scaler.setByY(scaleFactor);
+        scaler.setCycleCount(Animation.INDEFINITE);
+        scaler.setAutoReverse(true);
+        scaler.play();
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+    private Stream<Circle> makeRow() {
+        return Stream.generate(() -> new Circle(CELL_SIZE / 4)).limit(COLS);
     }
 
+    private void addRowToCanvas(Stream<Circle> circles) {
+        col = 0;
+        circles.forEach(c -> {
+            addToCanvas(c);
+            col++;
+        });
+    }
+
+    private Stream<Stream<Circle>> makeAllRows() {
+        return Stream.generate(this::makeRow).limit(ROWS);
+    }
+
+    private void addAllRowsToCanvas(Stream<Stream<Circle>> circles) {
+        row = 0;
+        circles.forEach(r -> {
+            addRowToCanvas(r);
+            row++;
+        });
+    }
 }
