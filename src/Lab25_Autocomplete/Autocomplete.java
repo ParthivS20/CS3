@@ -9,11 +9,11 @@ public class Autocomplete {
 
     }
 
-    public Term[] allMatches(String prefix) {
+    Term[] allMatches(String prefix) {
         return null;
     }
 
-    public int numberOfMatches(String prefix) {
+    int numberOfMatches(String prefix) {
         return -1;
     }
 }
