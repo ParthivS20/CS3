@@ -64,38 +64,38 @@ public class AutocompleteGUI extends JFrame {
 
     // Display top k results
     private final int k;
+
+    // Indicates whether to display weights next to query matches
+    private boolean displayWeights = true;
+
     Creates a
-    defi
-    URI from
-    and
+    the user
 
     
 *
 
         *
-    the userned
-    string
-    with thed
-    sesearches
-    selecte-
+    URI from
+    defined string
     the web
-    Opens tharche
+    -
+    and searches
+    with thselectede
+    search
+     *
+    Opens the
+    engine
      *
     @param
     s string
 
     /*     *
-    engine
-     *
     to search
-    // Indicates whether to display weights next to query matches
-    private boolean displayWeights = true;
      *
     /**
      * Initializes the GUI, and the associated Autocomplete object
-     *
      * @param filename the file to read all the autocomplete data from
-     * @param k        the maximum number of suggestions to return
+     * @param k the maximum number of suggestions to return
      */
     public AutocompleteGUI(String filename, int k) {
         this.k = k;
@@ -186,7 +186,6 @@ public class AutocompleteGUI extends JFrame {
      *
     dropdown menu
      */
-
     public static void main(String[] args) {
         final String filename = "wiki.txt";
         final int k = 10; //number of auto-complete result to show, hard-coded at the moment
@@ -197,12 +196,8 @@ public class AutocompleteGUI extends JFrame {
                     }
                 });
     }
-
     online for
             */
-
-    default web browser(or a new tab if it is already open)
-
     private void searchOnline(String s) {
 
         // create the URL
@@ -223,11 +218,15 @@ public class AutocompleteGUI extends JFrame {
         }
     }
 
+    default web browser(or a new tab if it is already open)
+
     /**
-     * /**
+
+     /**
      * The panel that interfaces with the Autocomplete object.  It consists
      * of a search bar that text can be entered into, and a drop-down list
      * of suggestions auto-completing the user's query.
+     *
      */
     private class AutocompletePanel extends JPanel {
         // for serializable classes
@@ -236,13 +235,13 @@ public class AutocompleteGUI extends JFrame {
         private final JTextField searchText;      // the search bar
         // number of columns in the search text that is kept
         private final int DEF_COLUMNS = 45;
+        private String[] results = new String[k]; // an array of matches
+        //// private JList<String> suggestions;   // a list of autocomplete matches (Java 7)
+        private JList suggestions;                // a list of autocomplete matches (Java 6)
         // an example of one of the longest strings in the database
         private final String suggListLen =
                 "<b>Harry Potter and the Deathly Hallows: Part 1 (2010)</b>";
         private Autocomplete auto;                // the Autocomplete object
-        private String[] results = new String[k]; // an array of matches
-        //// private JList<String> suggestions;   // a list of autocomplete matches (Java 7)
-        private JList suggestions;                // a list of autocomplete matches (Java 6)
         private JScrollPane scrollPane;           // the scroll bar on the side of the
         // the suggestion drop-down below the
         // last suggestion
@@ -261,7 +260,6 @@ public class AutocompleteGUI extends JFrame {
         /**
          * Creates the Autocomplete object and the search bar and suggestion
          * drop-down portions of the GUI
-         *
          * @param filename the file the Autocomplete object is constructed from
          */
         public AutocompletePanel(String filename) {
@@ -615,7 +613,6 @@ public class AutocompleteGUI extends JFrame {
         /**
          * Makes a call to the implementation of Autocomplete to get
          * suggestions for the currently entered text.
-         *
          * @param text string to search for
          */
         public void getSuggestions(String text) {
