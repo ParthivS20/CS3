@@ -68,30 +68,6 @@ public class AutocompleteGUI extends JFrame {
     // Indicates whether to display weights next to query matches
     private boolean displayWeights = true;
 
-    Creates a
-    the user
-
-    
-*
-
-        *
-    URI from
-    defined string
-    the web
-    -
-    and searches
-    with thselectede
-    search
-     *
-    Opens the
-    engine
-     *
-    @param
-    s string
-
-    /*     *
-    to search
-     *
     /**
      * Initializes the GUI, and the associated Autocomplete object
      * @param filename the file to read all the autocomplete data from
@@ -163,28 +139,11 @@ public class AutocompleteGUI extends JFrame {
         );
     }
 
-    Creates an
-    AutocompleteGUI object
-    and start
-    it continuously
-    running
-     *
-    @param
-    args the
-    filename from
-    which the
-    Autocomplete object
-    is populated
-     *
-    and the
-    integer k
-    which defines
-    the maximum
-    number of
-    objects in
-    the
-     *
-    dropdown menu
+    /**
+     * Creates an AutocompleteGUI object and start it continuously running
+     * @param args the filename from which the Autocomplete object is populated
+     * and the integer k which defines the maximum number of objects in the
+     * dropdown menu
      */
     public static void main(String[] args) {
         final String filename = "wiki.txt";
@@ -196,8 +155,14 @@ public class AutocompleteGUI extends JFrame {
                     }
                 });
     }
-    online for
-            */
+
+    /**
+     * Creates a URI from the user-defined string and searches the web with the
+     * selected search engine
+     * Opens the default web browser (or a new tab if it is already open)
+     *
+     * @param s string to search online for
+     */
     private void searchOnline(String s) {
 
         // create the URL
@@ -218,11 +183,7 @@ public class AutocompleteGUI extends JFrame {
         }
     }
 
-    default web browser(or a new tab if it is already open)
-
     /**
-
-     /**
      * The panel that interfaces with the Autocomplete object.  It consists
      * of a search bar that text can be entered into, and a drop-down list
      * of suggestions auto-completing the user's query.
@@ -320,8 +281,7 @@ public class AutocompleteGUI extends JFrame {
                             searchText.setCaretPosition(pos);
                         }
 
-                        public void focusLost(FocusEvent e) {
-                        }
+                        public void focusLost(FocusEvent e) { }
                     });
 
             // create the search text box
@@ -354,7 +314,6 @@ public class AutocompleteGUI extends JFrame {
             Action makeSelection = new AbstractAction() {
                 // for serializable classes
                 private static final long serialVersionUID = 1L;
-
                 public void actionPerformed(ActionEvent e) {
                     if (!suggestions.isSelectionEmpty()) {
                         String selection =
@@ -372,7 +331,6 @@ public class AutocompleteGUI extends JFrame {
             Action moveSelectionUp = new AbstractAction() {
                 // for serializable classes
                 private static final long serialVersionUID = 1L;
-
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (suggestions.getSelectedIndex() >= 0) {
@@ -385,7 +343,6 @@ public class AutocompleteGUI extends JFrame {
             Action moveSelectionDown = new AbstractAction() {
                 // for serializable classes
                 private static final long serialVersionUID = 1L;
-
                 public void actionPerformed(ActionEvent e) {
                     if (suggestions.getSelectedIndex() != results.length) {
                         suggestions.requestFocusInWindow();
@@ -397,7 +354,6 @@ public class AutocompleteGUI extends JFrame {
             Action moveSelectionUpFocused = new AbstractAction() {
                 // for serializable classes
                 private static final long serialVersionUID = 1L;
-
                 public void actionPerformed(ActionEvent e) {
                     if (suggestions.getSelectedIndex() == 0) {
                         suggestions.clearSelection();
@@ -441,7 +397,7 @@ public class AutocompleteGUI extends JFrame {
             int maxWidth = searchText.getMaximumSize().width + 2 * prefBarWidth;
             int searchBarHeight = searchText.getPreferredSize().height;
             int suggestionHeight = suggestions.getFixedCellHeight();
-            int maxSuggestionHeight = DEF_HEIGHT * 2;
+            int maxSuggestionHeight = DEF_HEIGHT*2;
 
             suggestionsPanel.setPreferredSize(new Dimension(preferredWidth, suggestionHeight));
             suggestionsPanel.setMaximumSize(new Dimension(maxWidth, maxSuggestionHeight));
@@ -697,7 +653,6 @@ public class AutocompleteGUI extends JFrame {
                 return getSearchText();
             }
         }
-
         public String getSearchText() {
             return searchText.getText();
         }
