@@ -15,10 +15,12 @@ public class Autocomplete {
         int firstIndex = Searcher.firstIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
         int lastIndex = Searcher.lastIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
 
-        int numMatches = firstIndex == -1 ? 0 : lastIndex - firstIndex + 1;
+        int numMatches = firstIndex < 0 ? 0 : lastIndex - firstIndex + 1;
 
         Term[] allMatches = new Term[numMatches];
-        System.arraycopy(terms, firstIndex, allMatches, 0, numMatches);
+        for(int i = 0; i < numMatches; i++) {
+            allMatches[i] = terms[i + firstIndex];
+        }
         Arrays.sort(allMatches, Term.byReverseWeightOrder());
 
         return allMatches;

@@ -17,7 +17,7 @@ public class Term implements Comparable<Term> {
     }
 
     public static Comparator<Term> byPrefixOrder(int r) {
-        return (t1, t2) -> CharSequence.compare(t1.query.substring(0, r), t2.query.substring(0, r));
+        return (t1, t2) -> CharSequence.compare(t1.query.substring(0, Math.min(r, t1.query.length())), t2.query.substring(0, Math.min(r, t2.query.length())));
     }
 
     @Override
