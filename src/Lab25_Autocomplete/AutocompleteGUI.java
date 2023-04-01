@@ -1,5 +1,7 @@
 package Lab25_Autocomplete;
 
+import Util.PackageFile;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -146,7 +148,7 @@ public class AutocompleteGUI extends JFrame {
      * dropdown menu
      */
     public static void main(String[] args) {
-        final String filename = "wiki.txt";
+        final String filename = "data/wiki.txt";
         final int k = 10; //number of auto-complete result to show, hard-coded at the moment
         SwingUtilities.invokeLater(
                 new Runnable() {
@@ -229,7 +231,7 @@ public class AutocompleteGUI extends JFrame {
             // Read in the data
             Term[] terms = null;
             try {
-                Scanner in = new Scanner(new File(filename));
+                Scanner in = new Scanner(new PackageFile(filename, AutocompleteGUI.class));
                 String line0 = in.nextLine();
                 if (line0 == null) {
                     System.err.println("Could not read line 0 of " + filename);

@@ -20,6 +20,16 @@ public class Term implements Comparable<Term> {
         return (t1, t2) -> CharSequence.compare(t1.query.substring(0, r), t2.query.substring(0, r));
     }
 
+    @Override
+    public int compareTo(Term other) {
+        return this.query.compareTo(other.query);
+    }
+
+    @Override
+    public String toString() {
+        return this.weight + "\t" + this.query;
+    }
+
     public static void main(String[] args) {
         Term t1 = new Term("abcdefg", 1);
         Term t2 = new Term("sdgsdfg", 2);
@@ -33,15 +43,5 @@ public class Term implements Comparable<Term> {
         Arrays.stream(terms).sorted(Term.byReverseWeightOrder()).forEach(System.out::println);
 
         Arrays.stream(terms).sorted(Term.byPrefixOrder(2)).forEach(System.out::println);
-    }
-
-    @Override
-    public int compareTo(Term other) {
-        return this.query.compareTo(other.query);
-    }
-
-    @Override
-    public String toString() {
-        return this.weight + "\t" + this.query;
     }
 }
