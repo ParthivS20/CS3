@@ -32,7 +32,7 @@ public class Autocomplete {
         int firstIndex = Searcher.firstIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
         int lastIndex = Searcher.lastIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
 
-        return firstIndex == -1 ? 0 : lastIndex - firstIndex + 1;
+        return firstIndex < 0 ? 0 : lastIndex - firstIndex + 1;
     }
 
     public static void main(String[] args) {
