@@ -23,6 +23,9 @@ public class MaximumPathSum {
 
     static int maxPathSum(int[][] triangle) {
         int n = triangle.length;
+        if(n == 0) return 0;
+        if(n == 1) return triangle[0][0];
+
         int[][] dp = new int[n][n];
         dp[0][0] = triangle[0][0];
 
