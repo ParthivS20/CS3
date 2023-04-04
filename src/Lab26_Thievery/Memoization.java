@@ -37,7 +37,7 @@ public class Memoization {
         return pascalMemo(row, col, memo);
     }
 
-    static int pascalMemo(int row, int col, HashMap<Pair, Integer> memo) {
+    private static int pascalMemo(int row, int col, HashMap<Pair, Integer> memo) {
         if(col == 0 || col == row) return 1;
 
         Pair pair = new Pair(row, col);
@@ -77,8 +77,7 @@ public class Memoization {
         int min = Integer.MAX_VALUE;
         for(int coin : coins) {
             if(total - coin >= 0) {
-                int value = minCoins(total - coin, coins, memo);
-                if(value < min) min = value;
+                min = Math.min(min, minCoins(total - coin, coins, memo));
             }
         }
 
