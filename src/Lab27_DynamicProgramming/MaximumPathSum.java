@@ -40,7 +40,9 @@ public class MaximumPathSum {
         }
 
         int max = dp[n - 1][0];
-        for(int i = 1; i < n; i++) max = Math.max(max, dp[n - 1][i]);
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, dp[n - 1][i]);
+        }
         return max;
     }
 }
