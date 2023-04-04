@@ -12,8 +12,9 @@ public class Autocomplete {
     Term[] allMatches(String prefix) {
         Arrays.sort(terms);
 
-        int firstIndex = Searcher.firstIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
-        int lastIndex = Searcher.lastIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
+        int[] indexes = Searcher.firstAndLastIndexOf(terms, new Term(prefix, -1), Term.byPrefixOrder(prefix.length()));
+        int firstIndex = indexes[0];
+        int lastIndex = indexes[1];
 
         int numMatches = firstIndex < 0 ? 0 : lastIndex - firstIndex + 1;
 

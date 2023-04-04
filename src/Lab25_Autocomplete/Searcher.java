@@ -7,17 +7,35 @@ public class Searcher {
     static int firstIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
         int keyIndex = binarySearch(terms, key, comparator);
 
-        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex - 1]) == 0)
+        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex - 1]) == 0) {
             keyIndex--;
+        }
         return keyIndex;
     }
 
     static int lastIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
         int keyIndex = binarySearch(terms, key, comparator);
 
-        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex + 1]) == 0)
+        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex + 1]) == 0) {
             keyIndex++;
+        }
         return keyIndex;
+    }
+
+    static int[] firstAndLastIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
+        int keyIndex = binarySearch(terms, key, comparator);
+
+        int first = keyIndex;
+        while (first > 0 && first < terms.length - 1 && comparator.compare(key, terms[first - 1]) == 0) {
+            first--;
+        }
+
+        int last = keyIndex;
+        while (last > 0 && last < terms.length - 1 && comparator.compare(key, terms[last + 1]) == 0) {
+            last++;
+        }
+
+        return new int[]{first, last};
     }
 
     private static int binarySearch(Term[] terms, Term key, Comparator<Term> comparator) {
