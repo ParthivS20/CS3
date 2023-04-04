@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Term implements Comparable<Term> {
-    String query;
-    long weight;
+    private String query;
+    private long weight;
 
     Term(String query, long weight) {
         this.query = query;
         this.weight = weight;
     }
 
-    public static Comparator<Term> byReverseWeightOrder() {
+    static Comparator<Term> byReverseWeightOrder() {
         return (t1, t2) -> Long.compare(t2.weight, t1.weight);
     }
 
-    public static Comparator<Term> byPrefixOrder(int r) {
+    static Comparator<Term> byPrefixOrder(int r) {
         return (t1, t2) -> CharSequence.compare(t1.query.substring(0, Math.min(r, t1.query.length())), t2.query.substring(0, Math.min(r, t2.query.length())));
     }
 
