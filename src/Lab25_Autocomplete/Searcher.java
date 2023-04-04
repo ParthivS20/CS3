@@ -4,16 +4,19 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Searcher {
-    public static int firstIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
+    static int firstIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
         int keyIndex = binarySearch(terms, key, comparator);
 
-        while(keyIndex > 0 && keyIndex < terms.length && comparator.compare(key, terms[keyIndex - 1]) == 0) keyIndex--;
+        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex - 1]) == 0)
+            keyIndex--;
         return keyIndex;
     }
 
-    public static int lastIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
+    static int lastIndexOf(Term[] terms, Term key, Comparator<Term> comparator) {
         int keyIndex = binarySearch(terms, key, comparator);
-        while(keyIndex > 0 && keyIndex < terms.length && comparator.compare(key, terms[keyIndex + 1]) == 0) keyIndex++;
+
+        while (keyIndex > 0 && keyIndex < terms.length - 1 && comparator.compare(key, terms[keyIndex + 1]) == 0)
+            keyIndex++;
         return keyIndex;
     }
 
