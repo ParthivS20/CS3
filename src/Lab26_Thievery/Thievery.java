@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Thievery {
-    static final int[] weights = { 6, 1, 2,  5, 4, 3};
-    static final int[] values  = {10, 5, 7, 12, 8, 6};
-    static final int W = 10;
+    private static final int[] weights = {6, 1, 2, 5, 4, 3};
+    private static final int[] values = {10, 5, 7, 12, 8, 6};
+    private static final int W = 10;
 
     public static void main(String[] args) {
         System.out.println("Maximum loot: " + thievery());
@@ -23,10 +23,12 @@ public class Thievery {
         String curKey = index + ": " + weightLimit;
         if(memo.containsKey(curKey)) return memo.get(curKey);
 
-        int temp = thievery(index - 1, weightLimit, memo);
+        int max = thievery(index - 1, weightLimit, memo);
+        if (weights[index - 1] <= weightLimit) {
+            max = Math.max(max, thievery(index - 1, weightLimit - weights[index - 1], memo) + values[index - 1]);
+        }
 
-        if(weights[index - 1] <= weightLimit) temp = Math.max(temp, thievery(index - 1, weightLimit - weights[index - 1], memo) + values[index - 1]);
-        memo.put(curKey, temp);
-        return temp;
+        memo.put(curKey, max);
+        return max;
     }
 }
