@@ -30,19 +30,17 @@ public class ClimbSteps {
         if (n <= 0) return 0;
         if (n == 1) return 1;
 
-        int[] dp = new int[3];
-        dp[0] = 1;
-        dp[1] = 1;
-        dp[2] = 2;
+        int a = 1;
+        int b = 1;
+        int c = 2;
 
         for (int i = 3; i <= n; i++) {
-            int temp1 = dp[2];
-            int temp2 = dp[1];
-            dp[2] = dp[2] + dp[1] + dp[0];
-            dp[1] = temp1;
-            dp[0] = temp2;
+            int sum = a + b + c;
+            a = b;
+            b = c;
+            c = sum;
         }
 
-        return dp[2];
+        return c;
     }
 }
