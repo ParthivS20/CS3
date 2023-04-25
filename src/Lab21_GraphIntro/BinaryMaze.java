@@ -32,17 +32,17 @@ public class BinaryMaze {
     }
 
     public static int bfs(Location source, Location dest, int[][] maze) {
+        Queue<Location> queue = new LinkedList<>();
         boolean[][] visited = new boolean[maze.length][maze[0].length];
 
-        Queue<Location> queue = new LinkedList<>();
-        queue.add(source);
-
+        queue.offer(source);
         visited[source.row][source.col] = true;
+
         int distance = 0;
         while(!queue.isEmpty()) {
             int size = queue.size();
             for(int i = 0; i < size; i++) {
-                Location temp = queue.remove();
+                Location temp = queue.poll();
                 if(temp.equals(dest)) return distance;
 
                 for(int j = 0; j < 4; j++) {
@@ -50,7 +50,7 @@ public class BinaryMaze {
                     int c = temp.col + dy[j];
 
                     if(r >= 0 && r < maze.length && c >= 0 && c < maze[0].length && maze[r][c] == 1 && !visited[r][c]) {
-                        queue.add(new Location(r, c));
+                        queue.offer(new Location(r, c));
                         visited[r][c] = true;
                     }
                 }
