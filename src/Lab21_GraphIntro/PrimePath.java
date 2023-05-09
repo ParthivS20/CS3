@@ -88,7 +88,7 @@ public class PrimePath {
         int count = 0;
         while(n1 > 0 && n2 > 0) {
             if (n1 % 10 != n2 % 10) {
-                if (count++ > 1) return false;
+                if (++count > 1) return false;
             }
 
             n1 /= 10;

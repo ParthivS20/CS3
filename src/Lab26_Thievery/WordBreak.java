@@ -18,16 +18,16 @@ public class WordBreak {
         return wordBreak(s,"", memo, dict);
     }
 
-    private String wordBreak(String s, String cur, Map<String, String> memo, Set<String> dict) {
-        if(s.isEmpty()) return cur;
+    private String wordBreak(String str, String cur, Map<String, String> memo, Set<String> dict) {
+        if (str.isEmpty()) return cur;
 
-        String curKey = s + ": " + cur;
+        String curKey = str + ": " + cur;
         if(memo.containsKey(curKey)) return memo.get(curKey);
 
-        for(int i = 1; i <= s.length(); i++) {
-            String temp = s.substring(0, i);
+        for (int i = 1; i <= str.length(); i++) {
+            String temp = str.substring(0, i);
             if(dict.contains(temp)) {
-                String result = wordBreak(s.substring(i), cur + temp + " ", memo, dict);
+                String result = wordBreak(str.substring(i), cur + temp + " ", memo, dict);
                 if(result != null) {
                     memo.put(curKey, result);
                     return result;
