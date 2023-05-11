@@ -32,7 +32,7 @@ public class EditDistance {
                 } else if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                     opt[i][j] = opt[i - 1][j - 1];
                 } else {
-                    opt[i][j] = 1 + min(opt[i][j - 1], opt[i - 1][j], opt[i - 1][j - 1]);
+                    opt[i][j] = 1 + min(opt[i][j - 1], opt[i - 1][j] + 2, opt[i - 1][j - 1] + 2);
                 }
             }
         }
