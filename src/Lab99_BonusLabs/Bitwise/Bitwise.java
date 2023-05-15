@@ -103,11 +103,12 @@ public class Bitwise {
     static void q11_hexToInt() {
         var hexNums = new ArrayList<String>();
         var inp = new Scanner(System.in);
+
         while (inp.hasNextLine()) {
             var hex = inp.nextLine().strip().toUpperCase();
+            if (hex.startsWith("0X")) hex = hex.substring(2);
             if (hex.isEmpty()) break;
 
-            if (hex.startsWith("0x")) hex = hex.substring(2);
             if (hex.length() > 8) continue;
 
             var invalid = false;
