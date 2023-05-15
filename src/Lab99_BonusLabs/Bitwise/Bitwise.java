@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bitwise {
+    static final char[] HEX_SYMBOLS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
     static boolean q1_isEven(int n) {
         if (n < 0) return false;
         return (n & 1) != 1;
@@ -60,16 +62,8 @@ public class Bitwise {
     static String q9_intToHexString(int n) {
         String hexString = "0x";
 
-        int c = 0;
-        int tempSum = 0;
-        for (int i = 0; i <= 32; i++) {
-            if (c == 4) {
-                c = 0;
-                hexString += tempSum > 9 ? (char) (tempSum - 10 + 'A') + "" : tempSum;
-            }
-
-            tempSum += (n >>> (32 - i - 1) & 1) * Math.pow(2, c);
-            c++;
+        for (int i = 0; i <= 7; i++) {
+            hexString += HEX_SYMBOLS[n >>> (28 - i * 4) & 0xF];
         }
 
         return hexString;
