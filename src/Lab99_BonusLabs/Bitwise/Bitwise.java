@@ -72,6 +72,7 @@ public class Bitwise {
     static void q10_binaryToInt() {
         var binaryNums = new ArrayList<String>();
         var inp = new Scanner(System.in);
+
         while (inp.hasNextLine()) {
             var bin = inp.nextLine().strip();
             if (bin.isEmpty()) break;
@@ -136,10 +137,10 @@ public class Bitwise {
         ArrayList<Integer> nums = new ArrayList<>();
         while (file.hasNextInt()) nums.add(file.nextInt());
 
-
+        /*
         System.out.println(q1_isEven(12));
         System.out.println(q1_isEven(15));
-
+         */
 
         /*
         System.out.println(q2_isPowerOf2(6));
